@@ -1,18 +1,20 @@
 import { fetchPosts, TPost, usePosts } from '@/api/posts'
 import Page from '@/components/Page/Page'
-import { Heading } from '@chakra-ui/layout'
-import { GetStaticProps } from 'next';
+import { Center, Container, Heading, Text, VStack } from '@chakra-ui/layout'
+import { Button } from '@chakra-ui/button'
+import { GetStaticProps } from 'next'
 import Head from 'next/head'
+import { LoginSwitch } from '@/components/forPages/indexPage/LoginSwitch'
 
 type THomePage = {
   posts: TPost[]
 }
 export default function Home(props: THomePage) {
-  const res = usePosts();
+  const res = usePosts()
 
-  console.log('post clientSide', res);
-  console.log('post serverSide', props.posts);
-  
+  console.log('post clientSide', res)
+  console.log('post serverSide', props.posts)
+
   return (
     <>
       <Head>
@@ -25,18 +27,24 @@ export default function Home(props: THomePage) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Page>
-        <Heading>The Blog</Heading>
+        <Center minH="100vh">
+          <LoginSwitch
+            onClickGuestMode={() => {}}
+            onClickAdmin={() => {}}
+            onClickUser={() => {}}
+          />
+        </Center>
       </Page>
     </>
   )
 }
 
 export const getStaticProps: GetStaticProps<THomePage> = async () => {
-  const posts = await fetchPosts().then(res => res.data);
+  const posts = await fetchPosts().then((res) => res.data)
 
   return {
     props: {
-      posts
-    }
+      posts,
+    },
   }
 }
