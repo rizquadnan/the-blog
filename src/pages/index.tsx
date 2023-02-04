@@ -1,8 +1,18 @@
+import { fetchPosts, TPost, usePosts } from '@/api/posts'
 import Page from '@/components/Page/Page'
 import { Heading } from '@chakra-ui/layout'
+import { GetStaticProps } from 'next';
 import Head from 'next/head'
 
-export default function Home() {
+type THomePage = {
+  posts: TPost[]
+}
+export default function Home(props: THomePage) {
+  const res = usePosts();
+
+  console.log('post clientSide', res);
+  console.log('post serverSide', props.posts);
+  
   return (
     <>
       <Head>
@@ -19,4 +29,14 @@ export default function Home() {
       </Page>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps<THomePage> = async () => {
+  const posts = await fetchPosts().then(res => res.data);
+
+  return {
+    props: {
+      posts
+    }
+  }
 }
