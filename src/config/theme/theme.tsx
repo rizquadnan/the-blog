@@ -1,7 +1,5 @@
 import { extendTheme } from '@chakra-ui/react'
 
-import { VStack } from './VStackConfig'
-
 const colors = {
   brand: {
     900: '#1a365d',
@@ -15,7 +13,6 @@ export const theme = extendTheme({
   config: {
     initialColorMode: 'dark',
   },
-  components: { VStack },
 })
 
 export default theme

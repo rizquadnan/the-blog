@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Heading, Text, VStack } from '@chakra-ui/layout'
+import { Container, Heading, Text } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
+import { VStack } from '@/components/uiKit/VStack'
 
 type TLoginSwitch = {
   onClickGuestMode: () => void
