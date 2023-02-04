@@ -1,4 +1,4 @@
-const { injectAxe, checkA11y } = require("axe-playwright");
+const { injectAxe, checkA11y, configureAxe } = require("axe-playwright");
 const { getStoryContext } = require("@storybook/test-runner");
 
 module.exports = {
@@ -8,6 +8,11 @@ module.exports = {
   async postRender(page, context) {
     // Get the entire context of a story, including parameters, args, argTypes, etc.
     const storyContext = await getStoryContext(page, context);
+
+    // Set the rules defined in Storybook preview js
+    configureAxe(page, {
+      rules: storyContext?.parameters?.a11y?.config?.rules ?? [],
+    });
 
     // Do not run a11y tests on disabled stories.
     if (storyContext.parameters?.a11y?.disable) {

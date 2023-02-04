@@ -18,6 +18,17 @@ export const parameters = {
   chakra: {
     theme,
   },
+  a11y: {
+    config: {
+      rules: [
+        {
+          // this rule is disabled because chakra ui gives a lot of multiple id
+          id: "duplicate-id",
+          enabled: false,
+        },
+      ],
+    },
+  },
 };
 
 function ColorMode(props) {
