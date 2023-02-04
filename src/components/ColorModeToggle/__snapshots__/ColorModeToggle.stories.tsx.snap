@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserInputs/ColorModeToggle Default smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Change to dark mode",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+  ],
+  "name": "userinputs-colormodetoggle--default",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
