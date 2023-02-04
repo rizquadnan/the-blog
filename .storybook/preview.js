@@ -10,6 +10,9 @@ export const parameters = {
       date: /Date$/,
     },
   },
+  chakra: {
+    theme,
+  },
 };
 
 export const decorators = [
