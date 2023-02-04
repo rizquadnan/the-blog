@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserInputs/LoginForm Default smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Email",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Email",
+      "pressed": undefined,
+      "role": "textbox",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Password",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Password",
+      "pressed": undefined,
+      "role": "textbox",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Submit",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+  ],
+  "name": "userinputs-loginform--default",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
