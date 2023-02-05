@@ -25,7 +25,7 @@ export default function Home() {
 
   const [user] = useState<TUser>(normalizeUser(MOCK_USER))
 
-  const headerBackground = useColorModeValue('white', 'transparent')
+  const headerBackground = useColorModeValue('white', 'gray.800')
 
   return (
     <>

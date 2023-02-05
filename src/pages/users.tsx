@@ -36,7 +36,7 @@ export default function Home() {
   )
   const [isUsersLoading, setIsUsersLoading] = useState(false)
 
-  const headerBackground = useColorModeValue('white', 'transparent')
+  const headerBackground = useColorModeValue('white', 'gray.800')
 
   return (
     <>
