@@ -5,3 +5,5 @@ export * from "./UserGroupIcon";
 export * from "./SettingsIcon";
 export * from "./PowerIcon";
 export * from "./EditIcon";
+export * from "./SendIcon";
+export * from "./ChevronIcon";

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Data Display/PostComment Default smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Bhima Iyengar",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "iyengar_bhima@ernser.info",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Quod dolor ea. Aut voluptas qui. Consequatur et laboriosam. Voluptatem nostrum occaecati.",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+  ],
+  "name": "data-display-postcomment--default",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
+
+exports[`Data Display/PostComment Loading smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": undefined,
+  "name": "data-display-postcomment--loading",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;

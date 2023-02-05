@@ -4,10 +4,12 @@ import {
   WrapItemProps as _WrapItemProps,
 } from '@chakra-ui/react'
 import React from 'react'
+import ChevronIcon from './ChevronIcon'
 import EditIcon from './EditIcon'
 import HomeIcon from './HomeIcon'
 import MoonIcon from './MoonIcon'
 import PowerIcon from './PowerIcon'
+import SendIcon from './SendIcon'
 import SettingsIcon from './SettingsIcon'
 import SunIcon from './SunIcon'
 import UserGroupIcon from './UserGroupIcon'
@@ -47,6 +49,12 @@ export function Icons() {
       </WrapItem>
       <WrapItem>
         <EditIcon />
+      </WrapItem>
+      <WrapItem>
+        <SendIcon />
+      </WrapItem>
+      <WrapItem>
+        <ChevronIcon />
       </WrapItem>
     </Wrap>
   )

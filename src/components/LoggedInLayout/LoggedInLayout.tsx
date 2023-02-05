@@ -1,13 +1,17 @@
 import React, { ReactNode } from 'react'
-import { Box, Flex } from '@chakra-ui/layout'
+import { Box, BoxProps, Flex } from '@chakra-ui/layout'
 
 type TLoggedInLayout = {
   sideNav: ReactNode
   bottomNav: ReactNode
   children: ReactNode
+  childrenContainerProps?: BoxProps
 }
 
-export function LoggedInLayout(props: TLoggedInLayout) {
+export function LoggedInLayout({
+  childrenContainerProps = {},
+  ...props
+}: TLoggedInLayout) {
   return (
     <Flex minH="100vh">
       <Box
@@ -23,9 +27,10 @@ export function LoggedInLayout(props: TLoggedInLayout) {
       <Box
         flex="1"
         padding={{ base: '16px', md: '54px' }}
-        paddingLeft={{ md: '240px' }}
+        paddingLeft={{ md: '262px' }}
         paddingBottom={{ base: '91px', md: '54px' }}
         maxW="100vw"
+        {...childrenContainerProps}
       >
         {props.children}
       </Box>

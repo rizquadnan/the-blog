@@ -15,6 +15,7 @@ import PostCard from '@/components/forPages/homePage/PostCard/PostCard'
 import { PostForm } from '@/components/forPages/homePage/PostForm'
 import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USER } from '@/mocks/auth'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
@@ -26,6 +27,8 @@ export default function Home() {
   const [user] = useState<TUser>(normalizeUser(MOCK_USER))
 
   const headerBackground = useColorModeValue('white', 'gray.800')
+
+  const router = useRouter()
 
   return (
     <>
@@ -72,7 +75,7 @@ export default function Home() {
                     content={post.body}
                     author={String(post.user_id)}
                     onClickEdit={() => setModalType('update')}
-                    onClickCard={() => {}}
+                    onClickCard={() => router.push(`/posts/${post.id}`)}
                     imageProps={{
                       src: `https://picsum.photos/seed/${post.id}1000/1000`,
                       alt: `Thumbnail for Post: ${post.title}`,
