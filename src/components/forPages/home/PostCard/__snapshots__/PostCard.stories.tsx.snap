@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Data Display/PostCard Default smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Random",
+      "pressed": undefined,
+      "role": "img",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Edit Post",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Inventore patruus traho decens accedo socius umbra est caritas ullam autem statua surculus.",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Author:",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "267738",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Laboriosam candidus conventus. Bestia adipisci vicissitudo. Appono iure victus. Omnis vito aut. Umbra vero capillus. Unus quis thesis. Alioqui constans ipsum. Acsi deprecator vitae. Tergum tepesco supellex. Viriliter asporto pecunia. Velit deduco eum. Spargo toties totus. Trepide avoco depopulo. Sublime et creber. Nihil quos vero. Suggero itaque vorax. Sui thema decens. Et aestivus colo. Solio administratio alienus. Unde amoveo tristis. Arto accipio solum. Solium socius strenuus.",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+  ],
+  "name": "data-display-postcard--default",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
+
+exports[`Data Display/PostCard Loading smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Random",
+      "pressed": undefined,
+      "role": "img",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Edit Post",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Author:",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+  ],
+  "name": "data-display-postcard--loading",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
