@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, Heading, Text } from '@chakra-ui/layout'
 import { Button } from '@chakra-ui/button'
 import { VStack } from '@/components/uiKit/VStack'
+import { Link } from '@/components/uiKit/Link'
 
 type TLoginSwitch = {
   onClickGuestMode: () => void
@@ -26,13 +27,13 @@ export function LoginSwitch(props: TLoginSwitch) {
           </Text>
         </VStack>
         <VStack w="100%">
-          <Button w="100%" onClick={props.onClickGuestMode}>
+          <Button w="100%" as={Link} href="/home" onClick={props.onClickAdmin}>
             Guest Mode
           </Button>
-          <Button w="100%" onClick={props.onClickAdmin}>
+          <Button w="100%" as={Link} href="/home" onClick={props.onClickAdmin}>
             Login As Admin
           </Button>
-          <Button w="100%" onClick={props.onClickUser}>
+          <Button w="100%" as={Link} href="/home" onClick={props.onClickUser}>
             Guest As User
           </Button>
         </VStack>

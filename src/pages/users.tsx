@@ -45,8 +45,12 @@ export default function Home() {
       </Head>
       <Page>
         <LoggedInLayout
-          sideNav={<Sidebar selectedNav="users" onLogout={() => {}} />}
-          bottomNav={<Bottombar selectedNav="users" onLogout={() => {}} />}
+          sideNav={
+            <Sidebar selectedNav="users" onLogout={() => router.push('/')} />
+          }
+          bottomNav={
+            <Bottombar selectedNav="users" onLogout={() => router.push('/')} />
+          }
         >
           <VStack>
             <Box position="sticky" top={0}>

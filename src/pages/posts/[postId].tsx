@@ -17,6 +17,7 @@ import { MOCK_COMMENTS } from '@/mocks/comments'
 import { PostComment } from '@/components/forPages/postPage/PostComment'
 import { InputComment } from '@/components/forPages/postPage/InputComment'
 import { ChevronIcon } from '@/components/uiKit/Icons'
+import { Link } from '@/components/uiKit/Link'
 
 export default function Home() {
   const headerBackground = useColorModeValue('white', 'gray.800')
@@ -41,8 +42,12 @@ export default function Home() {
       </Head>
       <Page>
         <LoggedInLayout
-          sideNav={<Sidebar selectedNav="home" onLogout={() => {}} />}
-          bottomNav={<Bottombar selectedNav="home" onLogout={() => {}} />}
+          sideNav={
+            <Sidebar selectedNav="home" onLogout={() => router.push('/')} />
+          }
+          bottomNav={
+            <Bottombar selectedNav="home" onLogout={() => router.push('/')} />
+          }
           childrenContainerProps={{
             px: '0px',
             maxW: '1200px',
@@ -60,7 +65,12 @@ export default function Home() {
                   zIndex={2}
                   {...pagePadding}
                 >
-                  <Button leftIcon={<ChevronIcon />} variant="link">
+                  <Button
+                    as={Link}
+                    href="/home"
+                    leftIcon={<ChevronIcon />}
+                    variant="link"
+                  >
                     Kembali
                   </Button>
                 </Box>

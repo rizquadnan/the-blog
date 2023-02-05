@@ -23,8 +23,15 @@ export default function Home() {
       </Head>
       <Page>
         <LoggedInLayout
-          sideNav={<Sidebar selectedNav="account" onLogout={() => {}} />}
-          bottomNav={<Bottombar selectedNav="account" onLogout={() => {}} />}
+          sideNav={
+            <Sidebar selectedNav="account" onLogout={() => router.push('/')} />
+          }
+          bottomNav={
+            <Bottombar
+              selectedNav="account"
+              onLogout={() => router.push('/')}
+            />
+          }
         >
           <VStack>
             <Flex

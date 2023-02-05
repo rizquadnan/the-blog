@@ -5,12 +5,14 @@ import { Button } from '@chakra-ui/button'
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import { LoginSwitch } from '@/components/forPages/indexPage/LoginSwitch'
+import { useRouter } from 'next/router'
 
 type THomePage = {
   posts: TPost[]
 }
 export default function Home(props: THomePage) {
   const res = usePosts()
+  const router = useRouter()
 
   console.log('post clientSide', res)
   console.log('post serverSide', props.posts)
