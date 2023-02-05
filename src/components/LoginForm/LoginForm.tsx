@@ -31,6 +31,7 @@ export function LoginForm(props: TLoginForm) {
         <Input
           {...register('email', { required: 'Email address is required' })}
           placeholder="Email"
+          type="email"
         />
         <FormErrorMessage>{errors.email?.message}</FormErrorMessage>
       </FormControl>

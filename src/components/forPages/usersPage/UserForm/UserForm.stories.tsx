@@ -1,0 +1,16 @@
+import * as React from 'react'
+import { Meta, Story } from '@storybook/react'
+import { UserForm } from './UserForm'
+
+type TUserForm = React.ComponentProps<typeof UserForm>
+export default {
+  title: 'User Inputs/UserForm',
+  component: UserForm,
+} as Meta<TUserForm>
+
+const Template: Story<TUserForm> = (args) => <UserForm {...args} />
+
+export const Default = Template.bind({})
+Default.args = {
+  author: String(271030),
+}

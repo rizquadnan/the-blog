@@ -1,5 +1,5 @@
 import Page from '@/components/Page/Page'
-import { Box, Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout'
+import { Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout'
 import Head from 'next/head'
 import { createPageTitle } from '@/utils/createPageTitle'
 import { VStack } from '@/components/uiKit/VStack'
@@ -11,8 +11,8 @@ import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
 import { TPost } from '@/api/posts'
 import { MOCK_POSTS } from '@/mocks/posts'
-import PostCard from '@/components/forPages/home/PostCard/PostCard'
-import { PostForm } from '@/components/forPages/home/PostForm'
+import PostCard from '@/components/forPages/homePage/PostCard/PostCard'
+import { PostForm } from '@/components/forPages/homePage/PostForm'
 import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USER } from '@/mocks/auth'
 
@@ -23,9 +23,9 @@ export default function Home() {
   const [posts, setPosts] = useState<TPost[]>(MOCK_POSTS)
   const [isPostsLoading, setIsPostsLoading] = useState(false)
 
-  const [user, setUser] = useState<TUser>(normalizeUser(MOCK_USER))
+  const [user] = useState<TUser>(normalizeUser(MOCK_USER))
 
-  const headerBackground = useColorModeValue('white', 'black')
+  const headerBackground = useColorModeValue('white', 'transparent')
 
   return (
     <>
@@ -109,13 +109,7 @@ export default function Home() {
           isOpen={modalType === 'create'}
           onClose={() => setModalType('none')}
           body={
-            <Box pb="24px">
-              <PostForm
-                variant="create"
-                author={user.name}
-                onSubmit={() => {}}
-              />
-            </Box>
+            <PostForm variant="create" author={user.name} onSubmit={() => {}} />
           }
         />
         <Modal

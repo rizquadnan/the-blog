@@ -27,7 +27,9 @@ export function Modal({ bodyContainerProps = {}, ...props }: ModalProps) {
           {props.title}
         </ModalHeader>
         <ModalCloseButton size="lg" />
-        <ModalBody {...bodyContainerProps}>{props.body}</ModalBody>
+        <ModalBody pb="24px" {...bodyContainerProps}>
+          {props.body}
+        </ModalBody>
         {props.footer !== undefined && (
           <ModalFooter display="block">{props.footer}</ModalFooter>
         )}
