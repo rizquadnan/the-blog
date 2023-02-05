@@ -1,5 +1,5 @@
 import Page from '@/components/Page/Page'
-import { Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout'
+import { Box, Center, Flex, Grid, GridItem, Heading } from '@chakra-ui/layout'
 import Head from 'next/head'
 import { createPageTitle } from '@/utils/createPageTitle'
 import { VStack } from '@/components/uiKit/VStack'
@@ -12,6 +12,9 @@ import { useState } from 'react'
 import { TPost } from '@/api/posts'
 import { MOCK_POSTS } from '@/mocks/posts'
 import PostCard from '@/components/forPages/home/PostCard/PostCard'
+import { PostForm } from '@/components/forPages/home/PostForm'
+import { normalizeUser, TUser } from '@/api/users'
+import { MOCK_USER } from '@/mocks/auth'
 
 export default function Home() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
@@ -19,6 +22,8 @@ export default function Home() {
   )
   const [posts, setPosts] = useState<TPost[]>(MOCK_POSTS)
   const [isPostsLoading, setIsPostsLoading] = useState(false)
+
+  const [user, setUser] = useState<TUser>(normalizeUser(MOCK_USER))
 
   const headerBackground = useColorModeValue('white', 'black')
 
@@ -103,13 +108,28 @@ export default function Home() {
           title="Create Post"
           isOpen={modalType === 'create'}
           onClose={() => setModalType('none')}
-          body={<div>Create Form</div>}
+          body={
+            <Box pb="24px">
+              <PostForm
+                variant="create"
+                author={user.name}
+                onSubmit={() => {}}
+              />
+            </Box>
+          }
         />
         <Modal
           title="Update Post"
           isOpen={modalType === 'update'}
           onClose={() => setModalType('none')}
-          body={<div>Update Form</div>}
+          body={
+            <PostForm
+              variant="update"
+              initialValues={{ body: 'some body', title: 'some title' }}
+              author={user.name}
+              onSubmit={() => {}}
+            />
+          }
         />
       </Page>
     </>

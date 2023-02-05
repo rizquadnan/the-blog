@@ -24,7 +24,7 @@ export function LoggedInLayout(props: TLoggedInLayout) {
         flex="1"
         padding={{ base: '16px', md: '54px' }}
         paddingLeft={{ md: '240px' }}
-        paddingBottom={{ base: '91px', md: '0px' }}
+        paddingBottom={{ base: '91px', md: '54px' }}
       >
         {props.children}
       </Box>
