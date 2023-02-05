@@ -27,13 +27,13 @@ export function LoginSwitch(props: TLoginSwitch) {
           </Text>
         </VStack>
         <VStack w="100%">
-          <Button w="100%" as={Link} href="/home" onClick={props.onClickAdmin}>
+          <Button w="100%" as={Link} href="/posts" onClick={props.onClickAdmin}>
             Guest Mode
           </Button>
-          <Button w="100%" as={Link} href="/home" onClick={props.onClickAdmin}>
+          <Button w="100%" as={Link} href="/posts" onClick={props.onClickAdmin}>
             Login As Admin
           </Button>
-          <Button w="100%" as={Link} href="/home" onClick={props.onClickUser}>
+          <Button w="100%" as={Link} href="/posts" onClick={props.onClickUser}>
             Guest As User
           </Button>
         </VStack>

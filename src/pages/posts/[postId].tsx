@@ -43,10 +43,10 @@ export default function Home() {
       <Page>
         <LoggedInLayout
           sideNav={
-            <Sidebar selectedNav="home" onLogout={() => router.push('/')} />
+            <Sidebar selectedNav="post" onLogout={() => router.push('/')} />
           }
           bottomNav={
-            <Bottombar selectedNav="home" onLogout={() => router.push('/')} />
+            <Bottombar selectedNav="post" onLogout={() => router.push('/')} />
           }
           childrenContainerProps={{
             px: '0px',
@@ -67,7 +67,7 @@ export default function Home() {
                 >
                   <Button
                     as={Link}
-                    href="/home"
+                    href="/posts"
                     leftIcon={<ChevronIcon />}
                     variant="link"
                   >

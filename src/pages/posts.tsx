@@ -11,14 +11,15 @@ import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
 import { TPost } from '@/api/posts'
 import { MOCK_POSTS } from '@/mocks/posts'
-import PostCard from '@/components/forPages/homePage/PostCard/PostCard'
-import { PostForm } from '@/components/forPages/homePage/PostForm'
+import PostCard from '@/components/forPages/postsPage/PostCard/PostCard'
+import { PostForm } from '@/components/forPages/postsPage/PostForm'
 import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USER } from '@/mocks/auth'
 import { useRouter } from 'next/router'
 import { Link } from '@/components/uiKit/Link'
+import { GetStaticProps } from 'next'
 
-export default function Home() {
+export default function Posts() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
     'none',
   )
@@ -34,15 +35,15 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>{createPageTitle('Home')}</title>
+        <title>{createPageTitle('Posts')}</title>
       </Head>
       <Page>
         <LoggedInLayout
           sideNav={
-            <Sidebar selectedNav="home" onLogout={() => router.push('/')} />
+            <Sidebar selectedNav="post" onLogout={() => router.push('/')} />
           }
           bottomNav={
-            <Bottombar selectedNav="home" onLogout={() => router.push('/')} />
+            <Bottombar selectedNav="post" onLogout={() => router.push('/')} />
           }
         >
           <VStack>
@@ -55,7 +56,7 @@ export default function Home() {
               background={headerBackground}
               py="12px"
             >
-              <Heading>Home</Heading>
+              <Heading>Posts</Heading>
               <Button
                 variant="ghost"
                 colorScheme="orange"
@@ -137,4 +138,10 @@ export default function Home() {
       </Page>
     </>
   )
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  return {
+    props: {},
+  }
 }

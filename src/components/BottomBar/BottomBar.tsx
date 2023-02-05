@@ -39,7 +39,7 @@ function BottombarItem(props: TBottombarItem) {
   )
 }
 
-type TNavItems = 'home' | 'users' | 'account' | 'logout'
+type TNavItems = 'post' | 'users' | 'account' | 'logout'
 type TBottombar = {
   selectedNav: TNavItems
   onLogout: () => void
@@ -63,11 +63,11 @@ export function Bottombar(props: TBottombar) {
       background={background}
     >
       <ColorModeToggle />
-      <Link href="/home" style={{ textDecoration: 'none' }}>
+      <Link href="/posts" style={{ textDecoration: 'none' }}>
         <BottombarItem
           icon={<HomeIcon fontSize="20px" />}
-          label="Home"
-          isSelected={props.selectedNav === 'home'}
+          label="Posts"
+          isSelected={props.selectedNav === 'post'}
         />
       </Link>
       <Link href="/users" style={{ textDecoration: 'none' }}>

@@ -11,7 +11,7 @@ import {
 import { Button, ButtonProps, useColorModeValue } from '@chakra-ui/react'
 import { ColorModeToggle } from '@/components/ColorModeToggle'
 
-type TNavItems = 'home' | 'users' | 'account' | 'logout'
+type TNavItems = 'post' | 'users' | 'account' | 'logout'
 type TSidebar = {
   selectedNav: TNavItems
   onLogout: () => void
@@ -40,16 +40,16 @@ export function Sidebar(props: TSidebar) {
       boxShadow={`${boxShadowColor} 0px 8px 12px`}
     >
       <VStack minW="160px">
-        {props.hideNav === 'home' ? null : (
+        {props.hideNav === 'post' ? null : (
           <Button
             as={Link}
-            href="/home"
+            href="/posts"
             leftIcon={<HomeIcon fontSize="18px" />}
             variant="ghost"
             justifyContent="flex-start"
-            {...(props.selectedNav === 'home' ? selectedNavStyles : {})}
+            {...(props.selectedNav === 'post' ? selectedNavStyles : {})}
           >
-            Home
+            Posts
           </Button>
         )}
         {props.hideNav === 'users' ? null : (
