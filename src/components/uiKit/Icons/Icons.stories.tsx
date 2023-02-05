@@ -4,7 +4,7 @@ import { Icons } from './Icons'
 
 type TIcons = React.ComponentProps<typeof Icons>
 export default {
-  title: 'DataDisplay/Icons',
+  title: 'Data Display/Icons',
   component: Icons,
 } as Meta<TIcons>
 

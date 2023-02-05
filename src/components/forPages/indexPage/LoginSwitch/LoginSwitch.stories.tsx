@@ -4,7 +4,7 @@ import { LoginSwitch } from './LoginSwitch'
 
 type TLoginSwitch = React.ComponentProps<typeof LoginSwitch>
 export default {
-  title: 'UserInputs/LoginSwitch',
+  title: 'User Inputs/LoginSwitch',
   component: LoginSwitch,
 } as Meta<TLoginSwitch>
 

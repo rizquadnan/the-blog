@@ -4,7 +4,7 @@ import { LoginForm } from './LoginForm'
 
 type TLoginForm = React.ComponentProps<typeof LoginForm>
 export default {
-  title: 'UserInputs/LoginForm',
+  title: 'User Inputs/LoginForm',
   component: LoginForm,
 } as Meta<TLoginForm>
 

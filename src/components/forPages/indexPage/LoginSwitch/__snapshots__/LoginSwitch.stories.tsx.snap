@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`UserInputs/LoginSwitch Default smoke-test 1`] = `
+exports[`User Inputs/LoginSwitch Default smoke-test 1`] = `
 Object {
   "checked": undefined,
   "children": Array [
@@ -46,7 +46,7 @@ Object {
       "value": undefined,
     },
   ],
-  "name": "userinputs-loginswitch--default",
+  "name": "user-inputs-loginswitch--default",
   "pressed": undefined,
   "role": "WebArea",
   "value": undefined,
