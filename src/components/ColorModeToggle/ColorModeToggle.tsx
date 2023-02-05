@@ -1,5 +1,5 @@
-import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 import { Flex, IconButton, useColorMode } from '@chakra-ui/react'
+import { SunIcon, MoonIcon } from '@/components/uiKit/Icons'
 
 export function ColorModeToggle() {
   const { colorMode, toggleColorMode } = useColorMode()
@@ -9,7 +9,7 @@ export function ColorModeToggle() {
       {colorMode === 'dark' ? (
         <IconButton
           aria-label="Change to light mode"
-          icon={<SunIcon />}
+          icon={<SunIcon fontSize="20px" />}
           onClick={toggleColorMode}
         />
       ) : (
