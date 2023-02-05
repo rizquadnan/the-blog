@@ -26,6 +26,7 @@ import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USERS } from '@/mocks/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { EditIcon } from '@/components/uiKit/Icons'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
@@ -38,10 +39,12 @@ export default function Home() {
 
   const headerBackground = useColorModeValue('white', 'gray.800')
 
+  const router = useRouter()
+
   return (
     <>
       <Head>
-        <title>{createPageTitle('Home')}</title>
+        <title>{createPageTitle('Users')}</title>
       </Head>
       <Page>
         <LoggedInLayout
@@ -53,7 +56,7 @@ export default function Home() {
           }
         >
           <VStack>
-            <Box position="sticky" top={0}>
+            <Box position="sticky" top={0} zIndex={2}>
               <Flex
                 justifyContent="space-between"
                 alignItems="center"

@@ -11,15 +11,18 @@ import { useState } from 'react'
 import { normalizeUser, TUser } from '@/api/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { MOCK_USER } from '@/mocks/auth'
+import { useRouter } from 'next/router'
 
 export default function Home() {
   const headerBackground = useColorModeValue('white', 'transparent')
   const [user, setUser] = useState<TUser>(normalizeUser(MOCK_USER))
 
+  const router = useRouter()
+
   return (
     <>
       <Head>
-        <title>{createPageTitle('Home')}</title>
+        <title>{createPageTitle('My Account')}</title>
       </Head>
       <Page>
         <LoggedInLayout
