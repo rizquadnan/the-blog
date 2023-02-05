@@ -7,8 +7,9 @@ import {
   UserGroupIcon,
 } from '@/components/uiKit/Icons'
 import { VStack } from '@/components/uiKit/VStack'
-import { Link } from '../uiKit/Link'
+import { Link } from '@/components/uiKit/Link'
 import { useColorModeValue } from '@chakra-ui/react'
+import { ColorModeToggle } from '@/components/ColorModeToggle'
 
 type TBottombarItem = {
   icon: ReactNode
@@ -18,11 +19,13 @@ type TBottombarItem = {
 }
 
 function BottombarItem(props: TBottombarItem) {
+  const color = useColorModeValue('black', 'white')
+
   return (
     <VStack
       as="button"
       alignItems="center"
-      color={props.isSelected ? 'orange.600' : undefined}
+      color={props.isSelected ? 'orange.600' : color}
       transition="color 250ms"
       cursor="pointer"
       _hover={{
@@ -47,6 +50,9 @@ export function Bottombar(props: TBottombar) {
     'rgba(149, 157, 165, 0.2)',
     'rgba(149, 157, 165, 0.05)',
   )
+
+  const background = useColorModeValue('white', 'black')
+
   return (
     <Flex
       w="100%"
@@ -54,7 +60,9 @@ export function Bottombar(props: TBottombar) {
       overflowX="scroll"
       padding="16px 20px"
       boxShadow={`${boxShadowColor} 6px 6px 60px`}
+      background={background}
     >
+      <ColorModeToggle />
       <Link href="/home" style={{ textDecoration: 'none' }}>
         <BottombarItem
           icon={<HomeIcon fontSize="20px" />}

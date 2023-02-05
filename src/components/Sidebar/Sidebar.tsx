@@ -1,5 +1,5 @@
 import React from 'react'
-import { Flex } from '@chakra-ui/layout'
+import { Flex, HStack } from '@chakra-ui/layout'
 import { VStack } from '@/components/uiKit/VStack'
 import { Link } from '@/components/uiKit/Link'
 import {
@@ -9,6 +9,7 @@ import {
   UserGroupIcon,
 } from '@/components/uiKit/Icons'
 import { Button, ButtonProps, useColorModeValue } from '@chakra-ui/react'
+import { ColorModeToggle } from '@/components/ColorModeToggle'
 
 type TNavItems = 'home' | 'users' | 'account' | 'logout'
 type TSidebar = {
@@ -86,6 +87,7 @@ export function Sidebar(props: TSidebar) {
             Logout
           </Button>
         )}
+        <ColorModeToggle />
       </VStack>
     </Flex>
   )

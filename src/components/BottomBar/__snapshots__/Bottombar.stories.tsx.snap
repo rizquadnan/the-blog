@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Layout/Bottombar Default smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Dark Mode",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": Array [
+        Object {
+          "checked": undefined,
+          "children": undefined,
+          "name": "Home",
+          "pressed": undefined,
+          "role": "button",
+          "value": undefined,
+        },
+      ],
+      "name": "Home",
+      "pressed": undefined,
+      "role": "link",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": Array [
+        Object {
+          "checked": undefined,
+          "children": undefined,
+          "name": "Users",
+          "pressed": undefined,
+          "role": "button",
+          "value": undefined,
+        },
+      ],
+      "name": "Users",
+      "pressed": undefined,
+      "role": "link",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": Array [
+        Object {
+          "checked": undefined,
+          "children": undefined,
+          "name": "My Account",
+          "pressed": undefined,
+          "role": "button",
+          "value": undefined,
+        },
+      ],
+      "name": "My Account",
+      "pressed": undefined,
+      "role": "link",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Logout",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+  ],
+  "name": "layout-bottombar--default",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
