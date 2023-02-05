@@ -4,7 +4,7 @@ import { ColorModeToggle } from './ColorModeToggle'
 
 type TColorModeToggle = React.ComponentProps<typeof ColorModeToggle>
 export default {
-  title: 'UserInputs/ColorModeToggle',
+  title: 'User Inputs/ColorModeToggle',
   component: ColorModeToggle,
 } as Meta<TColorModeToggle>
 
