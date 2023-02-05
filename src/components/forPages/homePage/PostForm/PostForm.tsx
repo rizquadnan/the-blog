@@ -30,13 +30,15 @@ export function PostForm(props: TPostFormCreate | TPostFormUpdate) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
   } = useForm<TFormValues>({
     defaultValues:
       props.variant === 'update'
         ? props.initialValues
         : { body: '', title: '' },
   })
+
+  const notEligbleToUpdate = props.variant === 'update' && !isDirty
 
   return (
     <VStack as="form" minW="280px">
@@ -75,6 +77,7 @@ export function PostForm(props: TPostFormCreate | TPostFormUpdate) {
       <Button
         w="100%"
         mt="48px !important"
+        isDisabled={notEligbleToUpdate}
         onClick={handleSubmit(props.onSubmit)}
       >
         Submit

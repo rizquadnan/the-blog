@@ -30,7 +30,7 @@ export function UserForm(props: TUserFormCreate | TUserFormUpdate) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isDirty },
     control,
   } = useForm<TFormValues>({
     defaultValues:
@@ -38,6 +38,8 @@ export function UserForm(props: TUserFormCreate | TUserFormUpdate) {
         ? props.initialValues
         : { email: '', gender: 'male', name: '', status: 'inactive' },
   })
+
+  const notEligbleToUpdate = props.variant === 'update' && !isDirty
 
   return (
     <VStack as="form" minW="280px">
@@ -108,6 +110,7 @@ export function UserForm(props: TUserFormCreate | TUserFormUpdate) {
         w="100%"
         mt="48px !important"
         onClick={handleSubmit(props.onSubmit)}
+        isDisabled={notEligbleToUpdate}
       >
         Submit
       </Button>

@@ -77,7 +77,7 @@ export function Bottombar(props: TBottombar) {
           isSelected={props.selectedNav === 'users'}
         />
       </Link>
-      <Link href="/users" style={{ textDecoration: 'none' }}>
+      <Link href="/my-account" style={{ textDecoration: 'none' }}>
         <BottombarItem
           icon={<SettingsIcon fontSize="20px" />}
           label="My Account"
