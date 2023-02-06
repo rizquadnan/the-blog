@@ -70,7 +70,7 @@ export default function Home() {
     pagination: commentsPagination,
   } = useComments({
     postId: validPostId ? Number(postId) : null,
-    perPage: 10,
+    perPage: 2,
     onErrorCallback: () => {
       toast({
         status: 'error',
@@ -167,12 +167,13 @@ export default function Home() {
                 <Text {...pagePadding}>{post.body}</Text>
               )}
             </VStack>
-            <VStack mt="48px !important" spacing="12px" {...pagePadding}>
+            <VStack mt="36px !important" spacing="20px" {...pagePadding}>
               <Box
                 position="sticky"
                 top={0}
                 background={inputCommentBackground}
                 zIndex={2}
+                py="12px"
               >
                 <InputComment
                   isLoading={loadingType === 'createComment'}
@@ -210,48 +211,52 @@ export default function Home() {
                   isDisabled={isPostLoading || isCommentsLoading}
                 />
               </Box>
-              {isLoadingCommentsFirstTime ? (
-                <VStack>
-                  <PostComment
-                    author={{ name: '', email: '' }}
-                    content=""
-                    isLoading
-                  />
-                  <Skeleton
-                    w="100%"
-                    h="40px"
-                    startColor={skeletonColor}
-                    endColor={skeletonColor}
-                  />
-                </VStack>
-              ) : comments.length > 0 ? (
-                <>
-                  <VStack spacing="24px">
-                    {comments.map((comment) => (
-                      <PostComment
-                        key={comment.id}
-                        author={{ name: comment.name, email: comment.email }}
-                        content={comment.body}
-                      />
-                    ))}
+              <VStack>
+                {isLoadingCommentsFirstTime ? (
+                  <VStack>
+                    <PostComment
+                      author={{ name: '', email: '' }}
+                      content=""
+                      isLoading
+                    />
+                    <Skeleton
+                      w="100%"
+                      h="40px"
+                      startColor={skeletonColor}
+                      endColor={skeletonColor}
+                    />
                   </VStack>
-                </>
-              ) : (
-                <Center mt="32px !important">
-                  <Text>No Comments</Text>
-                </Center>
-              )}
-              {commentsPagination.hasMore && (
-                <Center>
-                  <Button
-                    w="100%"
-                    isLoading={isCommentsLoading}
-                    onClick={() => commentsPagination.nextPage()}
-                  >
-                    Load more
-                  </Button>
-                </Center>
-              )}
+                ) : comments.length > 0 ? (
+                  <>
+                    <VStack spacing="24px">
+                      {comments.map((comment) => (
+                        <PostComment
+                          key={comment.id}
+                          author={{ name: comment.name, email: comment.email }}
+                          content={comment.body}
+                        />
+                      ))}
+                    </VStack>
+                  </>
+                ) : (
+                  <Center mt="32px !important">
+                    <Text>No Comments</Text>
+                  </Center>
+                )}
+                {commentsPagination.hasMore && (
+                  <Center mt="32px !important">
+                    <Button
+                      w="100%"
+                      isLoading={isCommentsLoading}
+                      onClick={() => commentsPagination.nextPage()}
+                      variant="outline"
+                      colorScheme="orange"
+                    >
+                      Load more
+                    </Button>
+                  </Center>
+                )}
+              </VStack>
             </VStack>
           </VStack>
         </LoggedInLayout>
