@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { Meta, Story } from '@storybook/react'
-import { Bottombar } from './Bottombar'
+import { Bottombar } from './BottomBar'
 import { Box } from '@chakra-ui/react'
 import { action } from '@storybook/addon-actions'
 

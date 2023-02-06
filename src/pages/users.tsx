@@ -13,7 +13,7 @@ import { createPageTitle } from '@/utils/createPageTitle'
 import { VStack } from '@/components/uiKit/VStack'
 import { LoggedInLayout } from '@/components/LoggedInLayout'
 import { Sidebar } from '@/components/Sidebar'
-import { Bottombar } from '@/components/Bottombar'
+import { Bottombar } from '@/components/BottomBar'
 import {
   Button,
   IconButton,
