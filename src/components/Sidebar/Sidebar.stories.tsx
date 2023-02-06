@@ -16,7 +16,7 @@ const Template: Story<TSidebar> = (args) => <Sidebar {...args} />
 
 export const Default = Template.bind({})
 Default.args = {
-  selectedNav: 'home',
+  selectedNav: 'post',
   onLogout: action('logout'),
 }
 

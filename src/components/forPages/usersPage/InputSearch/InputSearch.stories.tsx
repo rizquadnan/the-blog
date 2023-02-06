@@ -8,6 +8,6 @@ export default {
   component: InputSearch,
 } as Meta<TInputSearch>
 
-const Template: Story<TInputSearch> = () => <InputSearch />
+const Template: Story<TInputSearch> = (args) => <InputSearch {...args} />
 
 export const Default = Template.bind({})

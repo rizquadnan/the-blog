@@ -18,6 +18,6 @@ const Template: Story<TBottombar> = (args) => (
 
 export const Default = Template.bind({})
 Default.args = {
-  selectedNav: 'home',
+  selectedNav: 'post',
   onLogout: action('logout'),
 }

@@ -10,7 +10,18 @@ export default {
 
 const Template: Story<TUserForm> = (args) => <UserForm {...args} />
 
-export const Default = Template.bind({})
-Default.args = {
-  author: String(271030),
+export const Create = Template.bind({})
+Create.args = {
+  variant: 'create',
+}
+
+export const Update = Template.bind({})
+Update.args = {
+  variant: 'update',
+  initialValues: {
+    email: 'Some email',
+    gender: 'female',
+    status: 'active',
+    name: 'Some name',
+  },
 }
