@@ -4,6 +4,15 @@ const nextConfig = {
   images: {
     domains: ["picsum.photos"],
   },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/posts",
+        permanent: false,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
