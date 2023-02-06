@@ -1,6 +1,10 @@
 # The Blog
 Experience using The Blog in this application!
-![image](https://user-images.githubusercontent.com/52435643/212468269-27bec768-98ee-4cc7-86e8-afc7b4951c28.png)
+![image](https://user-images.githubusercontent.com/52435643/217092085-0da778fd-9ebb-4981-b6f2-174285e95996.png)
+
+# Deployment URLS
+1. App: https://the-blog-3jw3.vercel.app/
+2. UI Documentation: https://63e16a4ce6c6682334f84978-nfmqloaopw.chromatic.com/
 
 # Built with
 - Typescript
