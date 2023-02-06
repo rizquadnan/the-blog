@@ -17,7 +17,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { usePost } from '@/api/posts'
-import { TComment, useComments } from '@/api/comments'
+import { createComment, TComment, useComments } from '@/api/comments'
 import { MOCK_COMMENTS } from '@/mocks/comments'
 import { PostComment } from '@/components/forPages/postPage/PostComment'
 import { InputComment } from '@/components/forPages/postPage/InputComment'
@@ -27,6 +27,9 @@ import { Modal } from '@/components/uiKit/Modal'
 
 export default function Home() {
   const [modalType, setModalType] = useState<'invalidPostId' | 'none'>('none')
+  const [loadingType, setLoadingType] = useState<'createComment' | 'none'>(
+    'none',
+  )
 
   const skeletonColor = useColorModeValue('gray.500', 'white')
   const headerBackground = useColorModeValue('white', 'gray.800')
@@ -119,6 +122,7 @@ export default function Home() {
                     href="/posts"
                     leftIcon={<ChevronIcon />}
                     variant="link"
+                    colorScheme="orange"
                   >
                     Kembali
                   </Button>
@@ -171,7 +175,38 @@ export default function Home() {
                 zIndex={2}
               >
                 <InputComment
-                  onSubmit={() => {}}
+                  isLoading={loadingType === 'createComment'}
+                  onSubmit={async (val) => {
+                    setLoadingType('createComment')
+                    try {
+                      await createComment({
+                        payload: {
+                          name: 'The Blog User',
+                          email: 'the.blog.user@theblog.com',
+                          body: val,
+                        },
+                        postId: Number(postId),
+                      })
+
+                      refreshComments()
+                      toast({
+                        status: 'success',
+                        isClosable: true,
+                        title: 'Success!',
+                        description:
+                          'Successfully added comment, wait a moment until the comment appear in this page ',
+                      })
+                    } catch (error) {
+                      toast({
+                        status: 'error',
+                        isClosable: true,
+                        title: 'Failed to add comment',
+                        description: 'Please visit page later to try again',
+                      })
+                    } finally {
+                      setLoadingType('none')
+                    }
+                  }}
                   isDisabled={isPostLoading || isCommentsLoading}
                 />
               </Box>

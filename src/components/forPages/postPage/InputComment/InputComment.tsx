@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 type TInputComment = {
   onSubmit(value: string): void
   isDisabled?: boolean
+  isLoading?: boolean
 }
 
 export function InputComment(props: TInputComment) {
@@ -17,7 +18,7 @@ export function InputComment(props: TInputComment) {
         placeholder="Add comment"
         onChange={(e) => setValue(e.target.value)}
         paddingRight="60px !important"
-        isDisabled={props.isDisabled}
+        isDisabled={props.isDisabled || props.isLoading}
       />
       <IconButton
         position="absolute"
@@ -32,6 +33,7 @@ export function InputComment(props: TInputComment) {
         colorScheme="orange"
         icon={<SendIcon />}
         zIndex={2}
+        isLoading={props.isLoading}
       />
     </Box>
   )
