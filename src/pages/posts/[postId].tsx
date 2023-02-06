@@ -8,6 +8,7 @@ import { Sidebar } from '@/components/Sidebar'
 import { Bottombar } from '@/components/Bottombar'
 import {
   Button,
+  Skeleton,
   SkeletonText,
   useColorModeValue,
   useToast,
@@ -16,7 +17,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
 import { usePost } from '@/api/posts'
-import { TComment } from '@/api/comments'
+import { TComment, useComments } from '@/api/comments'
 import { MOCK_COMMENTS } from '@/mocks/comments'
 import { PostComment } from '@/components/forPages/postPage/PostComment'
 import { InputComment } from '@/components/forPages/postPage/InputComment'
@@ -27,6 +28,7 @@ import { Modal } from '@/components/uiKit/Modal'
 export default function Home() {
   const [modalType, setModalType] = useState<'invalidPostId' | 'none'>('none')
 
+  const skeletonColor = useColorModeValue('gray.500', 'white')
   const headerBackground = useColorModeValue('white', 'gray.800')
   const inputCommentBackground = useColorModeValue('white', 'gray.800')
 
@@ -39,9 +41,6 @@ export default function Home() {
       setModalType('invalidPostId')
     }
   }, [router, router.isReady, validPostId])
-
-  const [comments, setComments] = useState<TComment[]>([])
-  const [isCommentsLoading, setIsCommentsLoading] = useState(false)
 
   const pagePadding: Partial<BoxProps> = {
     px: { base: '16px', md: '0px' },
@@ -60,6 +59,26 @@ export default function Home() {
       })
     },
   })
+
+  const {
+    comments,
+    isLoading: isCommentsLoading,
+    refreshComments,
+    pagination: commentsPagination,
+  } = useComments({
+    postId: validPostId ? Number(postId) : null,
+    perPage: 10,
+    onErrorCallback: () => {
+      toast({
+        status: 'error',
+        isClosable: true,
+        title: 'Something went wrong',
+        description: 'Please visit page later to try again',
+      })
+    },
+  })
+
+  const isLoadingCommentsFirstTime = isCommentsLoading && comments.length === 0
 
   return (
     <>
@@ -111,8 +130,8 @@ export default function Home() {
                       <SkeletonText
                         noOfLines={3}
                         skeletonHeight="38px"
-                        startColor="white"
-                        endColor="white"
+                        startColor={skeletonColor}
+                        endColor={skeletonColor}
                         fontSize="36px"
                       />
                     ) : (
@@ -137,8 +156,8 @@ export default function Home() {
               {isPostLoading ? (
                 <SkeletonText
                   noOfLines={5}
-                  startColor="white"
-                  endColor="white"
+                  startColor={skeletonColor}
+                  endColor={skeletonColor}
                 />
               ) : (
                 <Text {...pagePadding}>{post.body}</Text>
@@ -151,9 +170,26 @@ export default function Home() {
                 background={inputCommentBackground}
                 zIndex={2}
               >
-                <InputComment onSubmit={() => {}} isDisabled={!post} />
+                <InputComment
+                  onSubmit={() => {}}
+                  isDisabled={isPostLoading || isCommentsLoading}
+                />
               </Box>
-              {comments.length > 0 ? (
+              {isLoadingCommentsFirstTime ? (
+                <VStack>
+                  <PostComment
+                    author={{ name: '', email: '' }}
+                    content=""
+                    isLoading
+                  />
+                  <Skeleton
+                    w="100%"
+                    h="40px"
+                    startColor={skeletonColor}
+                    endColor={skeletonColor}
+                  />
+                </VStack>
+              ) : comments.length > 0 ? (
                 <>
                   <VStack spacing="24px">
                     {comments.map((comment) => (
@@ -164,27 +200,21 @@ export default function Home() {
                       />
                     ))}
                   </VStack>
-                  <Center>
-                    <Button
-                      w="100%"
-                      isLoading={isCommentsLoading}
-                      onClick={() => {
-                        setIsCommentsLoading(true)
-                        setTimeout(() => {
-                          setIsCommentsLoading(false)
-                          setComments((prev) => {
-                            return [...prev, ...MOCK_COMMENTS]
-                          })
-                        }, 2000)
-                      }}
-                    >
-                      Load more
-                    </Button>
-                  </Center>
                 </>
               ) : (
                 <Center mt="32px !important">
                   <Text>No Comments</Text>
+                </Center>
+              )}
+              {commentsPagination.hasMore && (
+                <Center>
+                  <Button
+                    w="100%"
+                    isLoading={isCommentsLoading}
+                    onClick={() => commentsPagination.nextPage()}
+                  >
+                    Load more
+                  </Button>
                 </Center>
               )}
             </VStack>

@@ -15,7 +15,9 @@ export function usePost(args: TUsePostArgs): TUsePostReturnVal {
   const { data, isLoading, mutate, error } = useSwr<TPost>(
     args.postId !== null ? `/posts/${args.postId}` : null,
     (url) => fetcher(url).then((res) => res.data),
-    {}
+    {
+      onError: args.onErrorCallback,
+    }
   );
 
   return {
