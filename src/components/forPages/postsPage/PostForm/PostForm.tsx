@@ -25,8 +25,12 @@ type TPostFormUpdate = {
   initialValues: TFormValues
   onSubmit: (props: TFormValues) => void
 }
+type TPostForm = (TPostFormCreate | TPostFormUpdate) & {
+  author: string
+  isSubmitLoading?: boolean
+}
 
-export function PostForm(props: TPostFormCreate | TPostFormUpdate) {
+export function PostForm(props: TPostForm) {
   const {
     register,
     handleSubmit,
@@ -78,6 +82,7 @@ export function PostForm(props: TPostFormCreate | TPostFormUpdate) {
         w="100%"
         mt="48px !important"
         isDisabled={notEligbleToUpdate}
+        isLoading={props.isSubmitLoading}
         onClick={handleSubmit(props.onSubmit)}
       >
         Submit

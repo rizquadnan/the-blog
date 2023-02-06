@@ -3,4 +3,6 @@ export type TPost = {
   user_id: number;
   title: string;
   body: string;
-}
+};
+
+export type TCreatePostPayload = Omit<TPost, "id">;

@@ -9,14 +9,15 @@ import { Bottombar } from '@/components/Bottombar'
 import { Button, useColorModeValue, useToast } from '@chakra-ui/react'
 import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
-import { TPost, usePosts } from '@/api/posts'
-import { MOCK_POSTS } from '@/mocks/posts'
+import { usePosts } from '@/api/posts'
 import PostCard from '@/components/forPages/postsPage/PostCard/PostCard'
 import { PostForm } from '@/components/forPages/postsPage/PostForm'
 import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USER } from '@/mocks/auth'
 import { useRouter } from 'next/router'
 import { Link } from '@/components/uiKit/Link'
+import { fetcher } from '@/api/fetcher'
+import { createPost } from '@/api/posts/createPost'
 
 export default function Posts() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
@@ -31,8 +32,13 @@ export default function Posts() {
 
   const toast = useToast()
 
-  const { posts, isLoading: isPostsLoading, pagination } = usePosts({
-    perPage: 10,
+  const {
+    posts,
+    isLoading: isPostsLoading,
+    pagination,
+    refreshPosts,
+  } = usePosts({
+    perPage: 12,
     onErrorCallback: () => {
       toast({
         status: 'error',
@@ -44,6 +50,8 @@ export default function Posts() {
   })
 
   const isLoadingPostFirstTime = isPostsLoading && posts.length === 0
+
+  const [isCreateLoading, setIsCreateLoading] = useState(false)
 
   return (
     <>
@@ -167,7 +175,35 @@ export default function Posts() {
           isOpen={modalType === 'create'}
           onClose={() => setModalType('none')}
           body={
-            <PostForm variant="create" author={user.name} onSubmit={() => {}} />
+            <PostForm
+              variant="create"
+              author={user.name}
+              isSubmitLoading={isCreateLoading}
+              onSubmit={(val) => {
+                setIsCreateLoading(true)
+                try {
+                  createPost({ payload: { ...val, user_id: 290451 } })
+
+                  toast({
+                    status: 'success',
+                    title: 'Success!',
+                    description:
+                      'Successfully created post, wait a moment until the post appear in this page',
+                  })
+                  setModalType('none')
+                  refreshPosts()
+                } catch (error) {
+                  toast({
+                    status: 'error',
+                    isClosable: true,
+                    title: 'Something went wrong',
+                    description: 'Please visit page later to try again',
+                  })
+                } finally {
+                  setIsCreateLoading(false)
+                }
+              }}
+            />
           }
         />
         <Modal

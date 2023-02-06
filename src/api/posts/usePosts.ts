@@ -11,6 +11,7 @@ type TUsePostsReturnValue = {
   posts: TPost[];
   error: any;
   isLoading: boolean;
+  refreshPosts: () => void;
   pagination: TPagination;
 };
 type TUsePostsArgs = {
@@ -27,6 +28,7 @@ export function usePosts({
     isLoading,
     setSize,
     size,
+    mutate,
   } = useSwrInfinite<AxiosResponse<TPost[]>>(
     (index) => `/posts?page=${index + 1}&per_page=${perPage}`,
     (url) => fetcher.get(url)
@@ -43,6 +45,7 @@ export function usePosts({
     isLoading: Boolean(
       isLoading || (size > 0 && res && typeof res[size - 1] === "undefined")
     ),
+    refreshPosts: () => mutate(),
     pagination: {
       hasMore:
         getLoadedUntilItemNumber(size, perPage) <
