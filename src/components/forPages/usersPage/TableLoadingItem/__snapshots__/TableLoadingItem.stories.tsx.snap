@@ -1,22 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`User Inputs/LoginSwitch Default smoke-test 1`] = `
+exports[`Feedback/TableLoadingItem Default smoke-test 1`] = `
 Object {
   "checked": undefined,
   "children": Array [
     Object {
       "checked": undefined,
       "children": undefined,
-      "level": 1,
-      "name": "Welcome to The Blog",
-      "pressed": undefined,
-      "role": "heading",
-      "value": undefined,
-    },
-    Object {
-      "checked": undefined,
-      "children": undefined,
-      "name": "You can tryout this app in guest mode! For complete features, login using admin account or a user account",
+      "name": "1",
       "pressed": undefined,
       "role": "text",
       "value": undefined,
@@ -24,29 +15,45 @@ Object {
     Object {
       "checked": undefined,
       "children": undefined,
-      "name": "Guest Mode",
+      "name": "2",
       "pressed": undefined,
-      "role": "link",
+      "role": "text",
       "value": undefined,
     },
     Object {
       "checked": undefined,
       "children": undefined,
-      "name": "Login As Admin",
+      "name": "3",
       "pressed": undefined,
-      "role": "link",
+      "role": "text",
       "value": undefined,
     },
     Object {
       "checked": undefined,
       "children": undefined,
-      "name": "Guest As User",
+      "name": "4",
       "pressed": undefined,
-      "role": "link",
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "5",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "6",
+      "pressed": undefined,
+      "role": "text",
       "value": undefined,
     },
   ],
-  "name": "user-inputs-loginswitch--default",
+  "name": "feedback-tableloadingitem--default",
   "pressed": undefined,
   "role": "WebArea",
   "value": undefined,

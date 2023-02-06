@@ -67,22 +67,6 @@ Object {
     Object {
       "checked": undefined,
       "children": undefined,
-      "name": "Random",
-      "pressed": undefined,
-      "role": "img",
-      "value": undefined,
-    },
-    Object {
-      "checked": undefined,
-      "children": undefined,
-      "name": "Edit Post",
-      "pressed": undefined,
-      "role": "button",
-      "value": undefined,
-    },
-    Object {
-      "checked": undefined,
-      "children": undefined,
       "name": "Author:",
       "pressed": undefined,
       "role": "text",

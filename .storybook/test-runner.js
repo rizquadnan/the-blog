@@ -9,15 +9,15 @@ module.exports = {
     // Get the entire context of a story, including parameters, args, argTypes, etc.
     const storyContext = await getStoryContext(page, context);
 
-    // Set the rules defined in Storybook preview js
-    configureAxe(page, {
-      rules: storyContext?.parameters?.a11y?.config?.rules ?? [],
-    });
-
     // Do not run a11y tests on disabled stories.
     if (storyContext.parameters?.a11y?.disable) {
       return;
     }
+
+    // Set the rules defined in Storybook preview js
+    configureAxe(page, {
+      rules: storyContext?.parameters?.a11y?.config?.rules ?? [],
+    });
 
     await checkA11y(page, "#root", {
       detailedReport: true,

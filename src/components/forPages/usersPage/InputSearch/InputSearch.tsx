@@ -1,6 +1,14 @@
 import { TUser } from '@/api/users'
 import { SearchIcon } from '@/components/uiKit/Icons'
-import { Box, Flex, HStack, IconButton, Input, Select } from '@chakra-ui/react'
+import {
+  Box,
+  Flex,
+  HStack,
+  IconButton,
+  Input,
+  Select,
+  Text,
+} from '@chakra-ui/react'
 import React, { useState } from 'react'
 
 type TInputSearch = {

@@ -1,13 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`User Inputs/PostForm Default smoke-test 1`] = `
+exports[`User Inputs/PostForm CreateVariant smoke-test 1`] = `
 Object {
   "checked": undefined,
   "children": Array [
     Object {
       "checked": undefined,
       "children": undefined,
-      "name": "Updating a Post for: 271030",
+      "name": "Creating Post for user: 271030",
       "pressed": undefined,
       "role": "text",
       "value": undefined,
@@ -23,6 +23,7 @@ Object {
     Object {
       "checked": undefined,
       "children": undefined,
+      "multiline": true,
       "name": "Title",
       "pressed": undefined,
       "role": "textbox",
@@ -39,6 +40,7 @@ Object {
     Object {
       "checked": undefined,
       "children": undefined,
+      "multiline": true,
       "name": "Body",
       "pressed": undefined,
       "role": "textbox",
@@ -53,7 +55,70 @@ Object {
       "value": undefined,
     },
   ],
-  "name": "user-inputs-postform--default",
+  "name": "user-inputs-postform--create-variant",
+  "pressed": undefined,
+  "role": "WebArea",
+  "value": undefined,
+}
+`;
+
+exports[`User Inputs/PostForm UpdateVariant smoke-test 1`] = `
+Object {
+  "checked": undefined,
+  "children": Array [
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Updating Post: 241232",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Title",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "multiline": true,
+      "name": "Title",
+      "pressed": undefined,
+      "role": "textbox",
+      "value": "Some Title",
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "name": "Body",
+      "pressed": undefined,
+      "role": "text",
+      "value": undefined,
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "multiline": true,
+      "name": "Body",
+      "pressed": undefined,
+      "role": "textbox",
+      "value": "Some Body",
+    },
+    Object {
+      "checked": undefined,
+      "children": undefined,
+      "disabled": true,
+      "name": "Submit",
+      "pressed": undefined,
+      "role": "button",
+      "value": undefined,
+    },
+  ],
+  "name": "user-inputs-postform--update-variant",
   "pressed": undefined,
   "role": "WebArea",
   "value": undefined,
