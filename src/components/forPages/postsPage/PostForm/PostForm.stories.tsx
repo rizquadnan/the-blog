@@ -10,7 +10,18 @@ export default {
 
 const Template: Story<TPostForm> = (args) => <PostForm {...args} />
 
-export const Default = Template.bind({})
-Default.args = {
+export const CreateVariant = Template.bind({})
+CreateVariant.args = {
   author: String(271030),
+  variant: 'create',
+}
+
+export const UpdateVariant = Template.bind({})
+UpdateVariant.args = {
+  variant: 'update',
+  initialValues: {
+    body: 'Some Body',
+    title: 'Some Title',
+    post: String(241232),
+  },
 }

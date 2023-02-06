@@ -52,9 +52,12 @@ export default function Posts() {
     },
   })
 
-  const [initialUpdateValues, setInitialUpdateValues] = useState<
-    Pick<TPost, 'body' | 'title' | 'id'>
-  >({ body: '', title: '', id: 0 })
+  const [initialUpdateValues, setInitialUpdateValues] = useState<TPost>({
+    body: '',
+    title: '',
+    id: 0,
+    user_id: 0,
+  })
 
   const isLoadingPostFirstTime = isPostsLoading && posts.length === 0
 
@@ -151,6 +154,7 @@ export default function Posts() {
                           body: post.body,
                           title: post.title,
                           id: post.id,
+                          user_id: post.user_id,
                         })
                         setModalType('update')
                       }}
@@ -224,7 +228,11 @@ export default function Posts() {
           body={
             <PostForm
               variant="update"
-              initialValues={initialUpdateValues}
+              initialValues={{
+                body: initialUpdateValues.body,
+                post: String(initialUpdateValues.id),
+                title: initialUpdateValues.title,
+              }}
               author={user.name}
               isSubmitLoading={loadingType === 'update'}
               onSubmit={async (val) => {

@@ -1,4 +1,3 @@
-import { Input } from '@chakra-ui/input'
 import { Button } from '@chakra-ui/button'
 import {
   FormControl,
@@ -8,7 +7,7 @@ import {
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { VStack } from '@/components/uiKit/VStack'
-import { HStack, Text } from '@chakra-ui/react'
+import { Text, Textarea } from '@chakra-ui/react'
 
 type TFormValues = {
   title: string
@@ -21,8 +20,7 @@ type TPostFormCreate = {
 }
 type TPostFormUpdate = {
   variant: 'update'
-  author: string
-  initialValues: TFormValues
+  initialValues: TFormValues & { post: string }
   onSubmit: (props: TFormValues) => void
 }
 type TPostForm = (TPostFormCreate | TPostFormUpdate) & {
@@ -43,15 +41,19 @@ export function PostForm(props: TPostForm) {
   })
 
   const notEligbleToUpdate = props.variant === 'update' && !isDirty
+  const formTitle =
+    props.variant === 'create'
+      ? `Creating Post for user: ${props.author}`
+      : `Updating Post: ${props.initialValues.post}`
 
   return (
     <VStack as="form" minW="280px">
-      <Text fontSize="18px" fontWeight={600}>{`${
-        props.variant === 'create' ? 'Creating' : 'Updating'
-      } a Post for: ${props.author}`}</Text>
+      <Text fontSize="18px" fontWeight={600}>
+        {formTitle}
+      </Text>
       <FormControl isInvalid={Boolean(errors.title)}>
         <FormLabel>Title</FormLabel>
-        <Input
+        <Textarea
           {...register('title', {
             required: 'Title is required',
             minLength: {
@@ -66,7 +68,7 @@ export function PostForm(props: TPostForm) {
 
       <FormControl isInvalid={Boolean(errors.body)}>
         <FormLabel>Body</FormLabel>
-        <Input
+        <Textarea
           {...register('body', {
             required: 'Body is required',
             minLength: {
