@@ -1,7 +1,7 @@
 import { SkeletonText, Td, Tr, useColorModeValue } from '@chakra-ui/react'
 
 export function TableLoadingItem() {
-  const skeletonBackground = useColorModeValue('black', 'white')
+  const skeletonBackground = useColorModeValue('gray.500', 'black')
 
   return (
     <Tr>
@@ -12,7 +12,8 @@ export function TableLoadingItem() {
             <SkeletonText
               noOfLines={1}
               w="100%"
-              background={skeletonBackground}
+              startColor={skeletonBackground}
+              endColor={skeletonBackground}
             />
           </Td>
         ))}

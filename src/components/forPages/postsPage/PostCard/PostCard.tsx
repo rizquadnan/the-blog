@@ -34,6 +34,7 @@ export function PostCard({
   ...containerProps
 }: TPostCard) {
   const editButtonBackground = useColorModeValue('white', 'black')
+  const skeletonTextBackground = useColorModeValue('gray.500', 'black')
 
   return (
     <VStack
@@ -86,7 +87,11 @@ export function PostCard({
       >
         <VStack spacing="2px">
           {isLoading ? (
-            <SkeletonText noOfLines={2} />
+            <SkeletonText
+              startColor={skeletonTextBackground}
+              endColor={skeletonTextBackground}
+              noOfLines={2}
+            />
           ) : (
             <Text noOfLines={2} fontSize="18px" fontWeight={600}>
               {title}
@@ -97,14 +102,24 @@ export function PostCard({
               Author:{' '}
             </Text>{' '}
             {isLoading ? (
-              <SkeletonText noOfLines={1} w="100%" maxW="100px" />
+              <SkeletonText
+                startColor={skeletonTextBackground}
+                endColor={skeletonTextBackground}
+                noOfLines={1}
+                w="100%"
+                maxW="100px"
+              />
             ) : (
               <Text>{author}</Text>
             )}
           </HStack>
         </VStack>
         {isLoading ? (
-          <SkeletonText noOfLines={3} />
+          <SkeletonText
+            startColor={skeletonTextBackground}
+            endColor={skeletonTextBackground}
+            noOfLines={3}
+          />
         ) : (
           <Text noOfLines={3}>{content}</Text>
         )}
