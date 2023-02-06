@@ -9,18 +9,21 @@ import { Bottombar } from '@/components/Bottombar'
 import { Button, useColorModeValue, useToast } from '@chakra-ui/react'
 import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
-import { usePosts } from '@/api/posts'
+import { TPost, TUpdatePostPayload, usePosts } from '@/api/posts'
 import PostCard from '@/components/forPages/postsPage/PostCard/PostCard'
 import { PostForm } from '@/components/forPages/postsPage/PostForm'
 import { normalizeUser, TUser } from '@/api/users'
 import { MOCK_USER } from '@/mocks/auth'
 import { useRouter } from 'next/router'
 import { Link } from '@/components/uiKit/Link'
-import { fetcher } from '@/api/fetcher'
 import { createPost } from '@/api/posts/createPost'
+import { updatePost } from '@/api/posts/updatePost'
 
 export default function Posts() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
+    'none',
+  )
+  const [loadingType, setLoadingType] = useState<'create' | 'update' | 'none'>(
     'none',
   )
 
@@ -49,9 +52,11 @@ export default function Posts() {
     },
   })
 
-  const isLoadingPostFirstTime = isPostsLoading && posts.length === 0
+  const [initialUpdateValues, setInitialUpdateValues] = useState<
+    Pick<TPost, 'body' | 'title' | 'id'>
+  >({ body: '', title: '', id: 0 })
 
-  const [isCreateLoading, setIsCreateLoading] = useState(false)
+  const isLoadingPostFirstTime = isPostsLoading && posts.length === 0
 
   return (
     <>
@@ -137,18 +142,24 @@ export default function Posts() {
               ) : (
                 posts.map((post) => (
                   <GridItem key={post.id}>
-                    <Link href={`/posts/${post.id}`}>
-                      <PostCard
-                        title={post.title}
-                        content={post.body}
-                        author={String(post.user_id)}
-                        onClickEdit={() => setModalType('update')}
-                        imageProps={{
-                          src: `https://picsum.photos/seed/${post.id}1000/1000`,
-                          alt: `Thumbnail for Post: ${post.title}`,
-                        }}
-                      />
-                    </Link>
+                    <PostCard
+                      title={post.title}
+                      content={post.body}
+                      author={String(post.user_id)}
+                      onClickEdit={() => {
+                        setInitialUpdateValues({
+                          body: post.body,
+                          title: post.title,
+                          id: post.id,
+                        })
+                        setModalType('update')
+                      }}
+                      onClickCard={() => router.push(`/posts/${post.id}`)}
+                      imageProps={{
+                        src: `https://picsum.photos/seed/${post.id}1000/1000`,
+                        alt: `Thumbnail for Post: ${post.title}`,
+                      }}
+                    />
                   </GridItem>
                 ))
               )}
@@ -178,11 +189,11 @@ export default function Posts() {
             <PostForm
               variant="create"
               author={user.name}
-              isSubmitLoading={isCreateLoading}
-              onSubmit={(val) => {
-                setIsCreateLoading(true)
+              isSubmitLoading={loadingType === 'create'}
+              onSubmit={async (val) => {
+                setLoadingType('create')
                 try {
-                  createPost({ payload: { ...val, user_id: 290451 } })
+                  await createPost({ payload: { ...val, user_id: 290451 } })
 
                   toast({
                     status: 'success',
@@ -200,7 +211,7 @@ export default function Posts() {
                     description: 'Please visit page later to try again',
                   })
                 } finally {
-                  setIsCreateLoading(false)
+                  setLoadingType('none')
                 }
               }}
             />
@@ -213,9 +224,35 @@ export default function Posts() {
           body={
             <PostForm
               variant="update"
-              initialValues={{ body: 'some body', title: 'some title' }}
+              initialValues={initialUpdateValues}
               author={user.name}
-              onSubmit={() => {}}
+              isSubmitLoading={loadingType === 'update'}
+              onSubmit={async (val) => {
+                setLoadingType('update')
+                try {
+                  await updatePost({
+                    payload: val,
+                    postId: initialUpdateValues.id,
+                  })
+                  toast({
+                    status: 'success',
+                    title: 'Success!',
+                    description:
+                      'Successfully updated post, wait a moment until the post appear in this page',
+                  })
+                  setModalType('none')
+                  refreshPosts()
+                } catch (error) {
+                  toast({
+                    status: 'error',
+                    isClosable: true,
+                    title: 'Something went wrong',
+                    description: 'Please visit page later to try again',
+                  })
+                } finally {
+                  setLoadingType('none')
+                }
+              }}
             />
           }
         />

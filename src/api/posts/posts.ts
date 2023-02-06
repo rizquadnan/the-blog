@@ -6,3 +6,4 @@ export type TPost = {
 };
 
 export type TCreatePostPayload = Omit<TPost, "id">;
+export type TUpdatePostPayload = Partial<Omit<TCreatePostPayload, "user_id">>;

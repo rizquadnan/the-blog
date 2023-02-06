@@ -5,5 +5,5 @@ type TCreatePostArgs = {
   payload: TCreatePostPayload;
 };
 export function createPost(args: TCreatePostArgs) {
-  fetcher.post("/posts", args);
+  return fetcher.post("/posts", args.payload);
 }
