@@ -1,7 +1,12 @@
 import { EditIcon } from '@/components/uiKit/Icons'
 import { TVStack, VStack } from '@/components/uiKit/VStack'
 import { Box, HStack, Text } from '@chakra-ui/layout'
-import { IconButton, SkeletonText, useColorModeValue } from '@chakra-ui/react'
+import {
+  IconButton,
+  Skeleton,
+  SkeletonText,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import Image, { ImageProps } from 'next/image'
 import React from 'react'
 
@@ -48,21 +53,27 @@ export function PostCard({
         borderTopRightRadius="4px"
         overflow="hidden"
       >
-        <Image {...imageProps} loading="lazy" fill alt={imageProps.alt} />
-        <IconButton
-          icon={<EditIcon />}
-          aria-label="Edit Post"
-          onClick={(e) => {
-            e.stopPropagation()
+        {isLoading ? (
+          <Skeleton w="100%" h="100%" />
+        ) : (
+          <>
+            <Image {...imageProps} loading="lazy" fill alt={imageProps.alt} />
+            <IconButton
+              icon={<EditIcon />}
+              aria-label="Edit Post"
+              onClick={(e) => {
+                e.stopPropagation()
 
-            onClickEdit?.()
-          }}
-          position="absolute"
-          top="8px"
-          right="8px"
-          borderRadius="100%"
-          background={editButtonBackground}
-        />
+                onClickEdit?.()
+              }}
+              position="absolute"
+              top="8px"
+              right="8px"
+              borderRadius="100%"
+              background={editButtonBackground}
+            />
+          </>
+        )}
       </Box>
 
       <Box
