@@ -1,38 +1,30 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# The Blog
+Experience using The Blog in this application!
+![image](https://user-images.githubusercontent.com/52435643/212468269-27bec768-98ee-4cc7-86e8-afc7b4951c28.png)
 
-## Getting Started
+# Built with
+- Typescript
+- React Functional Component + React Hooks
+- Chakra UI
+- SWR
+- Axios
+- React Hook Form
 
-First, run the development server:
+# The codebase is maintained with help of
+- Jest
+- Storybook
+- Eslint
+- Prettier
+- Axe Playwright (a11y automated testing)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+# How to run locally (for developers)
+## Prerequiste
+1. Install node.js
+2. Install npm
+3. Install yarn
+4. Clone and run this repo locally (https://github.com/rizquadnan/the-blog)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Steps to run app
+1. Clone this repo
+2. On terminal execute: `yarn`
+3. On terminal execute: `yarn start`
