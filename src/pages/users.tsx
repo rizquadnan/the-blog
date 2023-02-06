@@ -23,7 +23,7 @@ import {
 } from '@chakra-ui/react'
 import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
-import { useUsers } from '@/api/users'
+import { createUser, normalizeUser, useUsers } from '@/api/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { EditIcon } from '@/components/uiKit/Icons'
 import { useRouter } from 'next/router'
@@ -33,6 +33,9 @@ export default function Home() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
     'none',
   )
+  const [loadingType, setLoadingType] = useState<'create' | 'update' | 'none'>(
+    'none',
+  )
 
   const headerBackground = useColorModeValue('white', 'gray.800')
 
@@ -40,7 +43,12 @@ export default function Home() {
 
   const toast = useToast()
 
-  const { users, isLoading: isUsersLoading, pagination } = useUsers({
+  const {
+    users,
+    isLoading: isUsersLoading,
+    pagination,
+    refreshUsers,
+  } = useUsers({
     perPage: 10,
     onErrorCallback: () =>
       toast({
@@ -142,7 +150,36 @@ export default function Home() {
           title="Create User"
           isOpen={modalType === 'create'}
           onClose={() => setModalType('none')}
-          body={<UserForm variant="create" onSubmit={() => {}} />}
+          body={
+            <UserForm
+              variant="create"
+              isLoading={loadingType === 'create'}
+              onSubmit={async (val) => {
+                setLoadingType('create')
+                try {
+                  await createUser({ payload: normalizeUser(val) })
+
+                  toast({
+                    status: 'success',
+                    title: 'Success!',
+                    description:
+                      'Successfully updated post, wait a moment until the post appear in this page',
+                  })
+                  setModalType('none')
+                  refreshUsers()
+                } catch (error) {
+                  toast({
+                    status: 'error',
+                    isClosable: true,
+                    title: 'Failed to create user',
+                    description: 'Please visit page later to try again',
+                  })
+                } finally {
+                  setLoadingType('none')
+                }
+              }}
+            />
+          }
         />
         <Modal
           title="Update User"

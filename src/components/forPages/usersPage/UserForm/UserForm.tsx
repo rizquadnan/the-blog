@@ -25,8 +25,9 @@ type TUserFormUpdate = {
   initialValues: TFormValues
   onSubmit: (props: TFormValues) => void
 }
+type TUserForm = (TUserFormCreate | TUserFormUpdate) & { isLoading?: boolean }
 
-export function UserForm(props: TUserFormCreate | TUserFormUpdate) {
+export function UserForm(props: TUserForm) {
   const {
     register,
     handleSubmit,
@@ -111,6 +112,7 @@ export function UserForm(props: TUserFormCreate | TUserFormUpdate) {
         mt="48px !important"
         onClick={handleSubmit(props.onSubmit)}
         isDisabled={notEligbleToUpdate}
+        isLoading={props.isLoading}
       >
         Submit
       </Button>
