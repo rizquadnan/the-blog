@@ -23,7 +23,13 @@ import {
 } from '@chakra-ui/react'
 import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
-import { createUser, normalizeUser, useUsers } from '@/api/users'
+import {
+  createUser,
+  normalizeUser,
+  TUser,
+  updateUser,
+  useUsers,
+} from '@/api/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { EditIcon } from '@/components/uiKit/Icons'
 import { useRouter } from 'next/router'
@@ -57,6 +63,14 @@ export default function Home() {
         title: 'Something went wrong',
         description: 'Please visit page later to try again',
       }),
+  })
+
+  const [updateInitialValues, setUpdateInitialValues] = useState<TUser>({
+    email: '',
+    gender: 'male',
+    status: 'inactive',
+    id: 0,
+    name: '',
   })
 
   return (
@@ -130,7 +144,10 @@ export default function Home() {
                               icon={<EditIcon />}
                               variant="ghost"
                               aria-label="Edit Post"
-                              onClick={() => setModalType('update')}
+                              onClick={() => {
+                                setUpdateInitialValues(normalizeUser(user))
+                                setModalType('update')
+                              }}
                             />
                           </Td>
                           <Td>{user.id}</Td>
@@ -189,12 +206,39 @@ export default function Home() {
             <UserForm
               variant="update"
               initialValues={{
-                email: 'some@gmail.com',
-                gender: 'female',
-                name: 'some name',
-                status: 'active',
+                email: updateInitialValues.email,
+                gender: updateInitialValues.gender,
+                name: updateInitialValues.name,
+                status: updateInitialValues.status,
               }}
-              onSubmit={() => {}}
+              isLoading={loadingType === 'update'}
+              onSubmit={async (val) => {
+                setLoadingType('update')
+                try {
+                  await updateUser({
+                    payload: { ...normalizeUser(val) },
+                    userId: updateInitialValues.id,
+                  })
+
+                  toast({
+                    status: 'success',
+                    title: 'Success!',
+                    description:
+                      'Successfully updated post, wait a moment until the post appear in this page',
+                  })
+                  setModalType('none')
+                  refreshUsers()
+                } catch (error) {
+                  toast({
+                    status: 'error',
+                    isClosable: true,
+                    title: 'Failed to update user',
+                    description: 'Please visit page later to try again',
+                  })
+                } finally {
+                  setLoadingType('none')
+                }
+              }}
             />
           }
         />
