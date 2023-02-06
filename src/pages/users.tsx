@@ -1,5 +1,5 @@
 import Page from '@/components/Page/Page'
-import { Box, Center, Flex, Heading } from '@chakra-ui/layout'
+import { Box, Center, Flex, Heading, HStack, Text } from '@chakra-ui/layout'
 import Head from 'next/head'
 import { createPageTitle } from '@/utils/createPageTitle'
 import { VStack } from '@/components/uiKit/VStack'
@@ -9,7 +9,6 @@ import { Bottombar } from '@/components/Bottombar'
 import {
   Button,
   IconButton,
-  SkeletonText,
   Table,
   TableCaption,
   TableContainer,
@@ -25,23 +24,24 @@ import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
 import {
   createUser,
+  deleteUser,
   normalizeUser,
   TUser,
   updateUser,
   useUsers,
 } from '@/api/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
-import { EditIcon } from '@/components/uiKit/Icons'
+import { EditIcon, TrashIcon } from '@/components/uiKit/Icons'
 import { useRouter } from 'next/router'
 import { TableLoadingItem } from '@/components/forPages/usersPage/TableLoadingItem'
 
 export default function Home() {
-  const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
-    'none',
-  )
-  const [loadingType, setLoadingType] = useState<'create' | 'update' | 'none'>(
-    'none',
-  )
+  const [modalType, setModalType] = useState<
+    'create' | 'update' | 'delete' | 'none'
+  >('none')
+  const [loadingType, setLoadingType] = useState<
+    'create' | 'update' | 'delete' | 'none'
+  >('none')
 
   const headerBackground = useColorModeValue('white', 'gray.800')
 
@@ -72,6 +72,7 @@ export default function Home() {
     id: 0,
     name: '',
   })
+  const [idSelectedForDelete, setIdSelectedForDelete] = useState(0)
 
   return (
     <>
@@ -140,15 +141,26 @@ export default function Home() {
                     : users.map((user) => (
                         <Tr key={user.id}>
                           <Td>
-                            <IconButton
-                              icon={<EditIcon />}
-                              variant="ghost"
-                              aria-label="Edit Post"
-                              onClick={() => {
-                                setUpdateInitialValues(normalizeUser(user))
-                                setModalType('update')
-                              }}
-                            />
+                            <HStack>
+                              <IconButton
+                                icon={<EditIcon />}
+                                variant="ghost"
+                                aria-label="Edit Post"
+                                onClick={() => {
+                                  setUpdateInitialValues(normalizeUser(user))
+                                  setModalType('update')
+                                }}
+                              />
+                              <IconButton
+                                icon={<TrashIcon />}
+                                variant="ghost"
+                                aria-label="Delete Post"
+                                onClick={() => {
+                                  setIdSelectedForDelete(user.id)
+                                  setModalType('delete')
+                                }}
+                              />
+                            </HStack>
                           </Td>
                           <Td>{user.id}</Td>
                           <Td>{user.name}</Td>
@@ -180,7 +192,7 @@ export default function Home() {
                     status: 'success',
                     title: 'Success!',
                     description:
-                      'Successfully updated post, wait a moment until the post appear in this page',
+                      'Successfully created user, wait a moment until the user appear in this page',
                   })
                   setModalType('none')
                   refreshUsers()
@@ -193,6 +205,7 @@ export default function Home() {
                   })
                 } finally {
                   setLoadingType('none')
+                  setModalType('none')
                 }
               }}
             />
@@ -224,7 +237,7 @@ export default function Home() {
                     status: 'success',
                     title: 'Success!',
                     description:
-                      'Successfully updated post, wait a moment until the post appear in this page',
+                      'Successfully updated user, wait a moment until the user appear in this page',
                   })
                   setModalType('none')
                   refreshUsers()
@@ -237,9 +250,55 @@ export default function Home() {
                   })
                 } finally {
                   setLoadingType('none')
+                  setModalType('none')
                 }
               }}
             />
+          }
+        />
+        <Modal
+          title="Delete User"
+          isOpen={modalType === 'delete'}
+          onClose={() => setModalType('none')}
+          size="sm"
+          isCentered
+          body={
+            <VStack spacing="32px">
+              <Text>Are you sure ? You cant undo this action</Text>
+              <HStack justifyContent="flex-end">
+                <Button colorScheme="orange">Cancel</Button>
+                <Button
+                  onClick={async () => {
+                    try {
+                      setLoadingType('delete')
+
+                      await deleteUser({ userId: idSelectedForDelete })
+
+                      toast({
+                        status: 'success',
+                        title: 'Success!',
+                        description:
+                          'Successfully deleted user, wait a moment until the user disappear in this page',
+                      })
+                      setModalType('none')
+                      refreshUsers()
+                    } catch (error) {
+                      toast({
+                        status: 'error',
+                        isClosable: true,
+                        title: 'Failed to delete user',
+                        description: 'Please visit page later to try again',
+                      })
+                    } finally {
+                      setLoadingType('none')
+                      setModalType('none')
+                    }
+                  }}
+                >
+                  Delete
+                </Button>
+              </HStack>
+            </VStack>
           }
         />
       </Page>

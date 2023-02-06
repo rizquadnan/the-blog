@@ -12,6 +12,7 @@ import PowerIcon from './PowerIcon'
 import SendIcon from './SendIcon'
 import SettingsIcon from './SettingsIcon'
 import SunIcon from './SunIcon'
+import TrashIcon from './TrashIcon'
 import UserGroupIcon from './UserGroupIcon'
 
 function WrapItem(props: _WrapItemProps) {
@@ -55,6 +56,9 @@ export function Icons() {
       </WrapItem>
       <WrapItem>
         <ChevronIcon />
+      </WrapItem>
+      <WrapItem>
+        <TrashIcon />
       </WrapItem>
     </Wrap>
   )
