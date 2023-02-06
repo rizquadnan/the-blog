@@ -16,17 +16,26 @@ type ModalProps = Omit<_ModalProps, 'children'> & {
   title: string
   bodyContainerProps?: ModalBodyProps
   footer?: ReactNode
+  closeable?: boolean
 }
 
-export function Modal({ bodyContainerProps = {}, ...props }: ModalProps) {
+export function Modal({
+  bodyContainerProps = {},
+  closeable = true,
+  ...props
+}: ModalProps) {
   return (
-    <_Modal size={{ base: 'full', xl: '3xl' }} {...props}>
+    <_Modal
+      size={{ base: 'full', xl: '3xl' }}
+      closeOnOverlayClick={closeable}
+      {...props}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader fontSize="32px" fontWeight={800} color="orange.600">
           {props.title}
         </ModalHeader>
-        <ModalCloseButton size="lg" />
+        {closeable && <ModalCloseButton size="lg" />}
         <ModalBody pb="24px" {...bodyContainerProps}>
           {props.body}
         </ModalBody>

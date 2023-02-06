@@ -1,17 +1,10 @@
 import { SendIcon } from '@/components/uiKit/Icons'
-import {
-  Box,
-  HStack,
-  IconButton,
-  Input,
-  InputGroup,
-  InputRightElement,
-  Textarea,
-} from '@chakra-ui/react'
+import { Box, IconButton, Textarea } from '@chakra-ui/react'
 import React, { useState } from 'react'
 
 type TInputComment = {
   onSubmit(value: string): void
+  isDisabled?: boolean
 }
 
 export function InputComment(props: TInputComment) {
@@ -24,6 +17,7 @@ export function InputComment(props: TInputComment) {
         placeholder="Add comment"
         onChange={(e) => setValue(e.target.value)}
         paddingRight="60px !important"
+        isDisabled={props.isDisabled}
       />
       <IconButton
         position="absolute"
