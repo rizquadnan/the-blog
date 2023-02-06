@@ -9,7 +9,8 @@
     "lint": "next lint",
     "storybook": "start-storybook -p 6006",
     "storybook:build": "build-storybook",
-    "storybook:test": "test-storybook"
+    "storybook:test": "test-storybook",
+    "chromatic": "npx chromatic --project-token=07f785b02103"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
@@ -46,6 +47,9 @@
     "@storybook/testing-library": "^0.0.13",
     "axe-playwright": "^1.1.12",
     "babel-loader": "^8.3.0",
+    "chromatic": "^6.15.0",
     "eslint-plugin-storybook": "^0.6.10"
-  }
+  },
+  "readme": "ERROR: No README data found!",
+  "_id": "the-blog@0.1.0"
 }
