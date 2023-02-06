@@ -5,3 +5,6 @@ export type TUser = {
   gender: "male" | "female";
   status: "active" | "inactive";
 };
+
+export type TCreateUserPayload = Omit<TUser, "id">;
+export type TUpdateUserPayload = Partial<TCreateUserPayload>;

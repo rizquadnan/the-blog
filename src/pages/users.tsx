@@ -9,37 +9,47 @@ import { Bottombar } from '@/components/Bottombar'
 import {
   Button,
   IconButton,
+  SkeletonText,
   Table,
   TableCaption,
   TableContainer,
   Tbody,
   Td,
-  Tfoot,
   Th,
   Thead,
   Tr,
   useColorModeValue,
+  useToast,
 } from '@chakra-ui/react'
 import { Modal } from '@/components/uiKit/Modal'
 import { useState } from 'react'
-import { normalizeUser, TUser } from '@/api/users'
-import { MOCK_USERS } from '@/mocks/users'
+import { useUsers } from '@/api/users'
 import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { EditIcon } from '@/components/uiKit/Icons'
 import { useRouter } from 'next/router'
+import { TableLoadingItem } from '@/components/forPages/usersPage/TableLoadingItem'
 
 export default function Home() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
     'none',
   )
-  const [users, setUsers] = useState<TUser[]>(() =>
-    MOCK_USERS.map((v) => normalizeUser(v)),
-  )
-  const [isUsersLoading, setIsUsersLoading] = useState(false)
 
   const headerBackground = useColorModeValue('white', 'gray.800')
 
   const router = useRouter()
+
+  const toast = useToast()
+
+  const { users, isLoading: isUsersLoading, pagination } = useUsers({
+    perPage: 10,
+    onErrorCallback: () =>
+      toast({
+        status: 'error',
+        isClosable: true,
+        title: 'Something went wrong',
+        description: 'Please visit page later to try again',
+      }),
+  })
 
   return (
     <>
@@ -76,29 +86,20 @@ export default function Home() {
 
             <TableContainer>
               <Table variant="striped" colorScheme="orange">
-                <TableCaption>
-                  <Center>
-                    <Button
-                      w="100%"
-                      variant="outline"
-                      isLoading={isUsersLoading}
-                      onClick={() => {
-                        setIsUsersLoading(true)
-                        setTimeout(() => {
-                          setIsUsersLoading(false)
-                          setUsers((prev) => {
-                            return [
-                              ...prev,
-                              ...MOCK_USERS.map((user) => normalizeUser(user)),
-                            ]
-                          })
-                        }, 2000)
-                      }}
-                    >
-                      Load More
-                    </Button>
-                  </Center>
-                </TableCaption>
+                {pagination.hasMore && (
+                  <TableCaption>
+                    <Center>
+                      <Button
+                        w="100%"
+                        variant="outline"
+                        isLoading={isUsersLoading}
+                        onClick={() => pagination.nextPage()}
+                      >
+                        Load More
+                      </Button>
+                    </Center>
+                  </TableCaption>
+                )}
                 <Thead>
                   <Tr>
                     <Th>Action</Th>
@@ -110,23 +111,27 @@ export default function Home() {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {users.map((user) => (
-                    <Tr key={user.id}>
-                      <Td>
-                        <IconButton
-                          icon={<EditIcon />}
-                          variant="ghost"
-                          aria-label="Edit Post"
-                          onClick={() => setModalType('update')}
-                        />
-                      </Td>
-                      <Td>{user.id}</Td>
-                      <Td>{user.name}</Td>
-                      <Td>{user.email}</Td>
-                      <Td>{user.gender}</Td>
-                      <Td>{user.status}</Td>
-                    </Tr>
-                  ))}
+                  {isUsersLoading && users.length === 0
+                    ? Array(4)
+                        .fill('')
+                        .map((_, index) => <TableLoadingItem key={index} />)
+                    : users.map((user) => (
+                        <Tr key={user.id}>
+                          <Td>
+                            <IconButton
+                              icon={<EditIcon />}
+                              variant="ghost"
+                              aria-label="Edit Post"
+                              onClick={() => setModalType('update')}
+                            />
+                          </Td>
+                          <Td>{user.id}</Td>
+                          <Td>{user.name}</Td>
+                          <Td>{user.email}</Td>
+                          <Td>{user.gender}</Td>
+                          <Td>{user.status}</Td>
+                        </Tr>
+                      ))}
                 </Tbody>
               </Table>
             </TableContainer>
