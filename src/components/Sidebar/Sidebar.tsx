@@ -10,6 +10,7 @@ import {
 } from '@/components/uiKit/Icons'
 import { Button, ButtonProps, useColorModeValue } from '@chakra-ui/react'
 import { ColorModeToggle } from '@/components/ColorModeToggle'
+import { FEATURE_FLAG } from '@/config/featureFlag'
 
 type TNavItems = 'post' | 'users' | 'account' | 'logout'
 type TSidebar = {
@@ -66,27 +67,31 @@ export function Sidebar(props: TSidebar) {
         )}
       </VStack>
       <VStack>
-        {props.hideNav === 'account' ? null : (
-          <Button
-            as={Link}
-            href="/my-account"
-            leftIcon={<SettingsIcon fontSize="18px" />}
-            variant="ghost"
-            justifyContent="flex-start"
-          >
-            My Account
-          </Button>
-        )}
-        {props.hideNav === 'logout' ? null : (
-          <Button
-            leftIcon={<PowerIcon fontSize="18px" />}
-            variant="ghost"
-            justifyContent="flex-start"
-            onClick={props.onLogout}
-          >
-            Logout
-          </Button>
-        )}
+        {props.hideNav === 'account'
+          ? null
+          : FEATURE_FLAG.enableMyAccount && (
+              <Button
+                as={Link}
+                href="/my-account"
+                leftIcon={<SettingsIcon fontSize="18px" />}
+                variant="ghost"
+                justifyContent="flex-start"
+              >
+                My Account
+              </Button>
+            )}
+        {props.hideNav === 'logout'
+          ? null
+          : FEATURE_FLAG.enableLogout && (
+              <Button
+                leftIcon={<PowerIcon fontSize="18px" />}
+                variant="ghost"
+                justifyContent="flex-start"
+                onClick={props.onLogout}
+              >
+                Logout
+              </Button>
+            )}
         <ColorModeToggle />
       </VStack>
     </Flex>

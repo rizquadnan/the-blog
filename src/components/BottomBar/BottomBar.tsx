@@ -10,6 +10,7 @@ import { VStack } from '@/components/uiKit/VStack'
 import { Link } from '@/components/uiKit/Link'
 import { useColorModeValue } from '@chakra-ui/react'
 import { ColorModeToggle } from '@/components/ColorModeToggle'
+import { FEATURE_FLAG } from '@/config/featureFlag'
 
 type TBottombarItem = {
   icon: ReactNode
@@ -77,19 +78,23 @@ export function Bottombar(props: TBottombar) {
           isSelected={props.selectedNav === 'users'}
         />
       </Link>
-      <Link href="/my-account" style={{ textDecoration: 'none' }}>
+      {FEATURE_FLAG.enableMyAccount && (
+        <Link href="/my-account" style={{ textDecoration: 'none' }}>
+          <BottombarItem
+            icon={<SettingsIcon fontSize="20px" />}
+            label="My Account"
+            isSelected={props.selectedNav === 'account'}
+          />
+        </Link>
+      )}
+      {FEATURE_FLAG.enableLogout && (
         <BottombarItem
-          icon={<SettingsIcon fontSize="20px" />}
-          label="My Account"
-          isSelected={props.selectedNav === 'account'}
+          onClick={props.onLogout}
+          icon={<PowerIcon fontSize="20px" />}
+          label="Logout"
+          isSelected={props.selectedNav === 'logout'}
         />
-      </Link>
-      <BottombarItem
-        onClick={props.onLogout}
-        icon={<PowerIcon fontSize="20px" />}
-        label="Logout"
-        isSelected={props.selectedNav === 'logout'}
-      />
+      )}
     </Flex>
   )
 }

@@ -17,6 +17,7 @@ import { MOCK_USER } from '@/mocks/auth'
 import { useRouter } from 'next/router'
 import { createPost } from '@/api/posts/createPost'
 import { updatePost } from '@/api/posts/updatePost'
+import { FEATURE_FLAG } from '@/config/featureFlag'
 
 export default function Posts() {
   const [modalType, setModalType] = useState<'create' | 'update' | 'none'>(
@@ -85,13 +86,15 @@ export default function Posts() {
               py="12px"
             >
               <Heading>Posts</Heading>
-              <Button
-                variant="ghost"
-                colorScheme="orange"
-                onClick={() => setModalType('create')}
-              >
-                Add Post
-              </Button>
+              {FEATURE_FLAG.enableCreatePost && (
+                <Button
+                  variant="ghost"
+                  colorScheme="orange"
+                  onClick={() => setModalType('create')}
+                >
+                  Add Post
+                </Button>
+              )}
             </Flex>
 
             <Grid

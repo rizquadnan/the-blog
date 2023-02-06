@@ -11,6 +11,11 @@ const nextConfig = {
         destination: "/posts",
         permanent: false,
       },
+      {
+        source: "/my-account",
+        destination: "/posts",
+        permanent: false,
+      },
     ];
   },
 };
