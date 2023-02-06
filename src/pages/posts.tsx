@@ -32,8 +32,7 @@ export default function Posts() {
   const toast = useToast()
 
   const { posts, isLoading: isPostsLoading, pagination } = usePosts({
-    initialPage: 1,
-    initialPerPage: 20,
+    perPage: 10,
     onErrorCallback: () => {
       toast({
         status: 'error',

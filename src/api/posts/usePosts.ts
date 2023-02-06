@@ -1,13 +1,10 @@
-import { useToast } from "@chakra-ui/react";
 import { AxiosResponse } from "axios";
-import { useState } from "react";
-import useSWR from "swr";
-import { TPagination } from "../fetcher";
+import useSwrInfinite from "swr/infinite";
+import { fetcher, TPagination } from "../fetcher";
 import {
   getLoadedUntilItemNumber,
   getTotalItemsFromResponse,
 } from "../fetcher/utils";
-import { fetchPosts } from "./fetchPosts";
 import { TPost } from "./posts";
 
 type TUsePostsReturnValue = {
@@ -17,56 +14,42 @@ type TUsePostsReturnValue = {
   pagination: TPagination;
 };
 type TUsePostsArgs = {
-  initialPage?: number;
-  initialPerPage?: number;
+  perPage?: number;
   onErrorCallback?: (err: unknown) => void;
 };
 export function usePosts({
-  initialPage = 1,
-  initialPerPage = 5,
+  perPage = 5,
   onErrorCallback,
 }: TUsePostsArgs): TUsePostsReturnValue {
-  const [posts, setPosts] = useState<TPost[]>(() => []);
-
-  const [page, setPage] = useState(() => initialPage);
-  const [per_page] = useState(() => initialPerPage);
-  const [loadedUntilItemNumber, setLoadedUntilItemNumber] = useState(
-    () => initialPage * initialPerPage
-  );
-  const [totalItems, setTotalItems] = useState(() => 0);
-
   const {
     data: res,
     error,
     isLoading,
-  } = useSWR<AxiosResponse<TPost[]>>(
-    ["/posts", page, per_page],
-    () => fetchPosts({ page, per_page }),
-    {
-      onSuccess: (res) => {
-        setPosts((prev) => {
-          return [...prev, ...(res.data ?? [])];
-        });
-
-        setTotalItems(getTotalItemsFromResponse(res));
-
-        setLoadedUntilItemNumber(getLoadedUntilItemNumber(page, per_page));
-      },
-      onError: (err) => {
-        onErrorCallback?.(err);
-      },
-    }
+    setSize,
+    size,
+  } = useSwrInfinite<AxiosResponse<TPost[]>>(
+    (index) => `/posts?page=${index + 1}&per_page=${perPage}`,
+    (url) => fetcher.get(url)
   );
 
+  const posts: TPost[] = [];
+  res?.forEach(({ data }) => {
+    posts.push(...data);
+  });
+
   return {
-    posts,
+    posts: posts,
     error,
-    isLoading,
+    isLoading: Boolean(
+      isLoading || (size > 0 && res && typeof res[size - 1] === "undefined")
+    ),
     pagination: {
-      hasMore: loadedUntilItemNumber < totalItems,
-      totalItems,
-      nextPage: () => setPage((prev) => prev + 1),
-      prevPage: () => setPage((prev) => prev - 1),
+      hasMore:
+        getLoadedUntilItemNumber(size, perPage) <
+        getTotalItemsFromResponse(res?.[0]),
+      totalItems: getTotalItemsFromResponse(res?.[0]),
+      nextPage: () => setSize(size + 1),
+      prevPage: () => setSize(size - 1),
     },
   };
 }
