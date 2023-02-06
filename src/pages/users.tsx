@@ -147,11 +147,12 @@ export default function Home() {
             <TableContainer>
               <Table variant="striped" colorScheme="orange">
                 {pagination.hasMore && (
-                  <TableCaption>
+                  <TableCaption px="0px">
                     <Center>
                       <Button
                         w="100%"
                         variant="outline"
+                        colorScheme="orange"
                         isLoading={isUsersLoading}
                         onClick={() => pagination.nextPage()}
                       >
