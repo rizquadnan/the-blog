@@ -8,3 +8,4 @@ export type TUser = {
 
 export type TCreateUserPayload = Omit<TUser, "id">;
 export type TUpdateUserPayload = Partial<TCreateUserPayload>;
+export type TSearchParamsUsers = Partial<TUser>;

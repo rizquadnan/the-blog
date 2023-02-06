@@ -9,6 +9,7 @@ import EditIcon from './EditIcon'
 import HomeIcon from './HomeIcon'
 import MoonIcon from './MoonIcon'
 import PowerIcon from './PowerIcon'
+import SearchIcon from './SearchIcon'
 import SendIcon from './SendIcon'
 import SettingsIcon from './SettingsIcon'
 import SunIcon from './SunIcon'
@@ -59,6 +60,9 @@ export function Icons() {
       </WrapItem>
       <WrapItem>
         <TrashIcon />
+      </WrapItem>
+      <WrapItem>
+        <SearchIcon />
       </WrapItem>
     </Wrap>
   )

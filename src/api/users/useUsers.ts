@@ -5,7 +5,7 @@ import {
   getLoadedUntilItemNumber,
   getTotalItemsFromResponse,
 } from "../fetcher/utils";
-import { TUser } from "./users";
+import { TSearchParamsUsers, TUser } from "./users";
 import { normalizeUser } from "./utils";
 
 type TUseUsersReturnValue = {
@@ -16,12 +16,29 @@ type TUseUsersReturnValue = {
   pagination: TPagination;
 };
 type TUseUsersArgs = {
+  searchParams?: TSearchParamsUsers;
   perPage?: number;
   onErrorCallback?: (err: unknown) => void;
 };
+
+function appendWithSearchParams(
+  baseUrl: string,
+  searchParams?: TSearchParamsUsers
+) {
+  const _searchParams = searchParams ?? {};
+  const paramsKey =
+    Object.keys(_searchParams).length > 0 ? Object.keys(_searchParams) : [];
+  const params = paramsKey.reduce((acc, cur) => {
+    return `${acc}&${cur}=${_searchParams[cur as keyof TUser]}`;
+  }, "");
+
+  return `${baseUrl}${params}`;
+}
+
 export function useUsers({
   perPage = 5,
   onErrorCallback,
+  searchParams,
 }: TUseUsersArgs): TUseUsersReturnValue {
   const {
     data: res,
@@ -31,7 +48,11 @@ export function useUsers({
     size,
     mutate,
   } = useSwrInfinite<AxiosResponse<TUser[]>>(
-    (index) => `/users?page=${index + 1}&per_page=${perPage}`,
+    (index) =>
+      appendWithSearchParams(
+        `/users?page=${index + 1}&per_page=${perPage}`,
+        searchParams
+      ),
     (url) => fetcher.get(url),
     { onError: (err) => onErrorCallback?.(err) }
   );

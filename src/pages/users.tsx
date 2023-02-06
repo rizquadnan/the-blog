@@ -1,5 +1,13 @@
 import Page from '@/components/Page/Page'
-import { Box, Center, Flex, Heading, HStack, Text } from '@chakra-ui/layout'
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  HStack,
+  Stack,
+  Text,
+} from '@chakra-ui/layout'
 import Head from 'next/head'
 import { createPageTitle } from '@/utils/createPageTitle'
 import { VStack } from '@/components/uiKit/VStack'
@@ -34,13 +42,14 @@ import { UserForm } from '@/components/forPages/usersPage/UserForm'
 import { EditIcon, TrashIcon } from '@/components/uiKit/Icons'
 import { useRouter } from 'next/router'
 import { TableLoadingItem } from '@/components/forPages/usersPage/TableLoadingItem'
+import { InputSearch } from '@/components/forPages/usersPage/InputSearch'
 
 export default function Home() {
   const [modalType, setModalType] = useState<
     'create' | 'update' | 'delete' | 'none'
   >('none')
   const [loadingType, setLoadingType] = useState<
-    'create' | 'update' | 'delete' | 'none'
+    'create' | 'update' | 'delete' | 'search' | 'none'
   >('none')
 
   const headerBackground = useColorModeValue('white', 'gray.800')
@@ -49,12 +58,15 @@ export default function Home() {
 
   const toast = useToast()
 
+  const [searchValue, setSearchValue] = useState<Partial<TUser>>({})
+
   const {
     users,
     isLoading: isUsersLoading,
     pagination,
     refreshUsers,
   } = useUsers({
+    searchParams: { ...searchValue },
     perPage: 10,
     onErrorCallback: () =>
       toast({
@@ -90,13 +102,38 @@ export default function Home() {
         >
           <VStack>
             <Box position="sticky" top={0} zIndex={2}>
-              <Flex
-                justifyContent="space-between"
-                alignItems="center"
+              <Stack
+                direction={{ base: 'column', md: 'row' }}
+                justifyContent="flex-start"
+                alignItems={{ base: 'flex-start', md: 'center' }}
                 background={headerBackground}
                 py="12px"
+                spacing="24px"
               >
-                <Heading>Users</Heading>
+                <Stack
+                  w="100%"
+                  direction={{ base: 'column', md: 'row' }}
+                  spacing={{ base: '8px', md: '24px' }}
+                  mr={{ md: 'auto' }}
+                >
+                  <Heading>Users</Heading>
+                  <InputSearch
+                    onSearch={async (searchBy, searchVal) => {
+                      try {
+                        setLoadingType('search')
+                        setSearchValue({ [searchBy]: searchVal })
+                        refreshUsers()
+                      } catch (error) {
+                        toast({
+                          status: 'error',
+                          isClosable: true,
+                          title: 'Failed to search user',
+                          description: 'Please visit page later to try again',
+                        })
+                      }
+                    }}
+                  />
+                </Stack>
                 <Button
                   variant="ghost"
                   colorScheme="orange"
@@ -104,7 +141,7 @@ export default function Home() {
                 >
                   Add User
                 </Button>
-              </Flex>
+              </Stack>
             </Box>
 
             <TableContainer>

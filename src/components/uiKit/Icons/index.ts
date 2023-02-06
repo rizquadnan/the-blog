@@ -8,3 +8,4 @@ export * from "./EditIcon";
 export * from "./SendIcon";
 export * from "./ChevronIcon";
 export * from "./TrashIcon";
+export * from "./SearchIcon";
